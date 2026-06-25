@@ -578,8 +578,8 @@
                 subtext: '경계를 허물다. 무결점 프레임리스 3면 파노라마 뷰 어항 케이스',
                 img: 'TA300_RGB_Black_1000x1000.jpg',
                 detailImgs: {
-                    'black': 'TA300_detail_black.jpg',
-                    'white': 'TA300_detail_white.jpg'
+                    'black': 'TA300_RGB_Black_20260120.jpg',
+                    'white': 'TA300_RGB_White_20260120.jpg'
                 },
                 quickSpecs: [
                     { label: '규격', val: 'ATX 미들타워 (파노라마 뷰)' },
@@ -1005,7 +1005,7 @@
                             btn.classList.add('active');
                             
                             // 이미지 로드 및 영역 보이기
-                            detailSpecImg.src = imgPath + '?v=202606251623';
+                            detailSpecImg.src = imgPath + '?v=202606251700';
                             if (colorSelectGuide) colorSelectGuide.style.display = 'none';
                             if (detailImgWrapper) detailImgWrapper.style.display = 'block';
                             if (zoomBtn) zoomBtn.style.display = 'inline-flex';
@@ -1018,7 +1018,7 @@
                     colorSelectorContainer.style.display = 'none';
                     if (colorSelectGuide) colorSelectGuide.style.display = 'none';
                     if (detailImgWrapper) detailImgWrapper.style.display = 'block';
-                    detailSpecImg.src = product.detailImg + '?v=202606251623';
+                    detailSpecImg.src = product.detailImg + '?v=202606251700';
                 }
             } else {
                 detailImgSection.style.display = 'none';
