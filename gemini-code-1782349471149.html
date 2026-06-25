@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2M TWOMIN SYSTEM - 투민시스템</title>
+    <style>
+        /* 기본 폰트 및 초기화 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; }
+        body { background-color: #f8f9fa; color: #333; }
+        a { text-decoration: none; color: inherit; }
+
+        /* 상단 내비게이션 (GNB) */
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e9ecef;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        .logo { font-size: 22px; font-weight: 800; color: #007aff; } /* 투민 스카이 블루 */
+        .logo span { color: #333; }
+        .menu { display: flex; list-style: none; gap: 30px; font-weight: 500; }
+        .menu li a:hover { color: #007aff; }
+        .cta-btn {
+            background-color: #ff6b00; /* 써마노바 에너제틱 오렌지 */
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* 히어로 배너 슬라이더 구조 및 페이드 전환 효과 */
+        .hero {
+            background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
+            color: #fff;
+            padding: 140px 20px 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 680px;
+        }
+        .hero-slider {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            height: 100%;
+        }
+        .hero-slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeEffect 0.6s ease-in-out;
+        }
+        .hero-slide.active {
+            display: flex;
+        }
+        @keyframes fadeEffect {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            background-color: #ff6b00;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .hero h1 { font-size: 42px; font-weight: 700; margin-bottom: 15px; line-height: 1.3; }
+        .hero p { font-size: 18px; color: #aeaeb2; margin-bottom: 30px; }
+        
+        /* TA300 와이드 전체 노출 프레임 유지 */
+        .hero-image-box {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            background-color: transparent;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .hero-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* 슬라이드 인디케이터 도트 버튼 */
+        .slide-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #636366;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .dot.active {
+            background-color: #007aff;
+            width: 25px;
+            border-radius: 5px;
+        }
+
+        /* 중앙 카테고리 탭 영역 */
+        .tabs-section {
+            max-width: 1200px;
+            margin: 50px auto 20px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .tab-menu {
+            display: inline-flex;
+            gap: 10px;
+            background-color: #e5e5ea;
+            padding: 6px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .tab-btn {
+            padding: 10px 24px;
+            border: none;
+            background: none;
+            font-size: 15px;
+            font-weight: bold;
+            color: #636366;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background-color: #ffffff;
+            color: #007aff;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* 제품 라인업 그리드 패널 */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: grid;
+        }
+
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        #matx-mini.products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e5ea;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s;
+            position: relative;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.05); }
+        
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #007aff;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            z-index: 10;
+        }
+        .card-badge.premium { background-color: #ff6b00; }
+        .card-badge.hit { background-color: #34c759; }
+
+        /* 🛠️ [수정 구간] 하단 쇼룸 제품 이미지 슬롯의 배경을 흰색으로 변경하고 정비율(contain) 압축 안착 기법 도입 */
+        .prod-img-slot {
+            width: 100%;
+            height: 200px;
+            background-color: #ffffff; /* 누끼 배경이 흰색인 원본 렌더링 파일에 최적화하여 회색 여백 제거 */
+            border: 1px solid #f2f2f7; /* 구분을 위한 미세 보더 라인 추가 */
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .prod-img-slot img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; /* 🚀 중요: 'cover'에서 'contain'으로 수정하여 단 1픽셀의 외곽 프레임도 잘림 없이 전체 노출 */
+        }
+        
+        .product-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1c1c1e; }
+        .product-card p { font-size: 13px; color: #8e8e93; line-height: 1.4; margin-bottom: 15px; text-align: left; }
+        
+        .b2b-quote-btn {
+            background-color: #f2f2f7;
+            color: #007aff;
+            border: 1px solid #007aff;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+        }
+        .b2b-quote-btn:hover { background-color: #007aff; color: #fff; }
+
+        /* B2B 대량 문의 전환 섹션 */
+        .b2b-lead-section {
+            background-color: #f2f2f7;
+            padding: 60px 20px;
+            border-top: 1px solid #e5e5ea;
+        }
+        .lead-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 4px 40px 40px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .lead-container h2 { font-size: 24px; font-weight: 700; margin: 30px 0 10px 0; text-align: center; }
+        .lead-container p { font-size: 14px; color: #636366; text-align: center; margin-bottom: 30px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px; color: #1c1c1e; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border: 1px solid #d1d1d6; border-radius: 6px; font-size: 14px;
+        }
+        .submit-btn {
+            width: 100%; background-color: #007aff; color: white; border: none; padding: 14px;
+            border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px;
+        }
+        .submit-btn:hover { background-color: #0056b3; }
+
+        /* 푸터 영역 */
+        footer { background-color: #1c1c1e; color: #8e8e93; padding: 40px 20px; font-size: 12px; line-height: 1.6; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .footer-info h4 { color: #fff; font-size: 14px; margin-bottom: 10px; }
+
+        /* 📱 반응형 미디어 쿼리 */
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            #matx-mini.products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 15px; text-align: center; }
+            .menu { gap: 15px; font-size: 14px; }
+            .hero { padding: 180px 20px 60px 20px; min-height: 580px; }
+            .hero h1 { font-size: 26px; }
+            .hero p { font-size: 14px; }
+            .hero-image-box { max-width: 320px; }
+            .products-grid { grid-template-columns: 1fr; }
+            #matx-mini.products-grid { grid-template-columns: 1fr; }
+            .footer-container { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">2M <span>TWOMIN SYSTEM</span></a>
+            <ul class="menu">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">BRAND</a></li>
+                <li><a href="#">PRODUCTS</a></li>
+                <li><a href="#">SUPPORT</a></li>
+            </ul>
+            <a href="#b2b-form" class="cta-btn">B2B 단가 문의</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slider">
+            
+            <div class="hero-slide active">
+                <div class="hero-badge">2026 NEW FLAGSHIP</div>
+                <h1>경계를 허물다.<br>무결점 프레임리스 파노라마 뷰, TA300 RGB</h1>
+                <p>기둥 없는 완전 개방감, 상단 3열 수랭 라디에이터 완벽 호환으로 하이엔드 게이밍 장악</p>
+                <div class="hero-image-box">
+                    <img src="TA300_RGB_Black_1000x1000.jpg" alt="TA300 RGB 플래그십 어항 케이스">
+                </div>
+            </div>
+
+            <div class="hero-slide">
+                <div class="hero-badge">SIGNATURE BEST</div>
+                <h1>완벽한 파노라마 뷰의 시작<br>투민시스템 주력 모델, TA100</h1>
+                <p>전면·측면 강화유리 설계로 세련된 튜닝 무드 연출, 대중적인 미들타워의 정석</p>
+                <div class="hero-image-box">
+                    <img src="TA100썸네일.jpg" alt="TA100">
+                </div>
+            </div>
+
+            <div class="hero-slide">
+                <div class="hero-badge">BEST SELLER</div>
+                <h1>공간 활용과 가성비의 정점<br>실속형 컴팩트 섀시, TM40 Standard</h1>
+                <p>관공서 및 대량 조립 PC 최적화 설계, 슬림한 구조에 완벽한 확장성을 더하다</p>
+                <div class="hero-image-box">
+                    <img src="TM40_화이트_1000x1000.jpg" alt="TM40 Standard">
+                </div>
+            </div>
+
+            <div class="hero-slide">
+                <div class="hero-badge">OFFICIAL STANDARD</div>
+                <h1>탄탄한 기본기, 오피스의 표준<br>비즈니스 최적화 라인업, TA10 Standard</h1>
+                <p>기업 및 사무실 대량 납품 1위 신화! 가장 군더더기 없고 견고한 오피셜 케이스</p>
+                <div class="hero-image-box">
+                    <img src="TA10_1000x1000_1.jpg" alt="TA10 Standard">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="slide-dots">
+            <div class="dot active" onclick="currentSlide(0)"></div>
+            <div class="dot" onclick="currentSlide(1)"></div>
+            <div class="dot" onclick="currentSlide(2)"></div>
+            <div class="dot" onclick="currentSlide(3)"></div>
+        </div>
+    </section>
+
+    <section class="tabs-section">
+        <div class="tab-menu">
+            <button class="tab-btn active" onclick="openTab('standard-atx')">STANDARD ATX</button>
+            <button class="tab-btn" onclick="openTab('matx-mini')">M-ATX MINI</button>
+            <button class="tab-btn" onclick="openTab('cpu-cooler')">CPU COOLER</button>
+        </div>
+    </section>
+
+    <div id="standard-atx" class="tab-content products-grid active">
+        
+        <div class="product-card">
+            <div class="card-badge premium">FLAGSHIP</div>
+            <div class="prod-img-slot">
+                <img src="TA300_RGB_Black_1000x1000.jpg" alt="TA300 RGB">
+            </div>
+            <h3>TA300 RGB</h3>
+            <p>기둥 없는 3면 파노라마 뷰, 상단 3열 수랭 완벽 장착 가능, 기본 리버스 RGB 팬 4개 탑재</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+        <div class="product-card">
+            <div class="card-badge">SIGNATURE</div>
+            <div class="prod-img-slot">
+                <img src="TA100썸네일.jpg" alt="TA100">
+            </div>
+            <h3>TA100</h3>
+            <p>투민시스템의 대표 간판 라인업! 완벽한 파노라마 글래스 적용 대중적인 어항형 미들타워</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+        <div class="product-card">
+            <div class="card-badge hit">COOLING 특화</div>
+            <div class="prod-img-slot">
+                <img src="TA200 AIR1 Black_1000x1000.jpg" alt="TA200 AIR1">
+            </div>
+            <h3>TA200 AIR1</h3>
+            <p>전면 고밀도 타공 풀 메쉬 구조로 흡기 효율 극대화, 기본 고휘도 RGB 팬 4개 장착 퍼포먼스 케이스</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+        <div class="product-card">
+            <div class="card-badge">BEST</div>
+            <div class="prod-img-slot">
+                <img src="TA10_1000x1000_1.jpg" alt="TA10">
+            </div>
+            <h3>TA10 Standard</h3>
+            <p>사무실·관공서 대량 납품 최적화. 노멀하면서 탄탄한 기본기에 집중한 오피셜 라인업</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+    </div>
+
+    <div id="matx-mini" class="tab-content products-grid">
+        
+        <div class="product-card">
+            <div class="card-badge premium">GAMING 히트</div>
+            <div class="prod-img-slot">
+                <img src="TM300_RGB_Black_1000x1000.jpg" alt="TM300 RGB">
+            </div>
+            <h3>TM300 RGB</h3>
+            <p>M-ATX 규격 컴팩트 하이엔드! 기둥리스 프레임리스 감성과 게이밍 가성비를 동시에 실현</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+        <div class="product-card">
+            <div class="card-badge hit">MINI MESH</div>
+            <div class="prod-img-slot">
+                <img src="TM200 AIR1 Black_1000x1000.jpg" alt="TM200 AIR1">
+            </div>
+            <h3>TM200 AIR1</h3>
+            <p>전면 버티컬 스트라이프 메쉬 패널 적용, 컴팩트 미니 규격에서 구현하는 최강의 공기 순환 성능</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+        <div class="product-card">
+            <div class="card-badge">COMPACT 어항</div>
+            <div class="prod-img-slot">
+                <img src="TM100_black_1000x1000_1.jpg" alt="TM100 FRGB">
+            </div>
+            <h3>TM100 FRGB</h3>
+            <p>공간 활용도를 극대화한 미니 어항형 큐브 섀시 구조, 순백의 All-White 및 Black 감성 선택 가능</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+        <div class="product-card">
+            <div class="card-badge premium">판매량 1위</div>
+            <div class="prod-img-slot">
+                <img src="TM40_화이트_1000x1000.jpg" alt="TM40">
+            </div>
+            <h3>TM40 Standard</h3>
+            <p>투민시스템의 실질적인 매출 견인차! 박리다매 저가형 시장 및 공공기관 조립 최적화 효자 모델</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+        <div class="product-card">
+            <div class="card-badge">가성비 추천 2위</div>
+            <div class="prod-img-slot">
+                <img src="TM50 Balck_1000x1000.jpg" alt="TM50 Black">
+            </div>
+            <h3>TM50 Black</h3>
+            <p>전면 입체 타공 메시 패널 적용으로 자연 흡기 극대화, 보급형 메시 시장을 겨냥한 가성비 쌍두마차</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+    </div>
+
+    <div id="cpu-cooler" class="tab-content products-grid">
+        
+        <div class="product-card">
+            <div class="card-badge premium">HI-END</div>
+            <div class="prod-img-slot">
+                <img src="NOVA6 ARGB_1_20250116.jpg" alt="NOVA 6 ARGB">
+            </div>
+            <h3>THERMANOVA NOVA 6</h3>
+            <p>6개의 고정밀 구리 히트파이프 구조, 5V ARGB 메인보드 완벽 동기화 및 메모리 간섭 제로 설계</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+        <div class="product-card">
+            <div class="card-badge">BEST 가성비</div>
+            <div class="prod-img-slot">
+                <img src="NOVA1 RGB_1_20250116.jpg" alt="NOVA 1 RGB">
+            </div>
+            <h3>THERMANOVA NOVA 1</h3>
+            <p>탑다운(플라워) 구조의 고풍량 RGB 내장형 일체형 쿨러, 미니 케이스(TM시리즈)와 최고의 가성비 궁합</p>
+            <button class="b2b-quote-btn" onclick="location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+    </div>
+
+    <section class="b2b-lead-section" id="b2b-form">
+        <div class="lead-container">
+            <h2>B2B 비즈니스 및 대량 구매 견적 문의</h2>
+            <p>용산 유통망, 조립 PC 업체, 기업 대량 납품용 단가 및 제안서를 신속하게 제공합니다.</p>
+            
+            <form action="#" method="POST" onsubmit="return handleMailSubmit();">
+                <div class="form-group">
+                    <label for="company">업체명 / 기업명</label>
+                    <input type="text" id="company" placeholder="예: 투민시스템 파트너" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">담당자명</label>
+                    <input type="text" id="name" placeholder="홍길동 팀장" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">연락처</label>
+                    <input type="text" id="contact" placeholder="010-1234-5678" required>
+                </div>
+                <div class="form-group">
+                    <label for="product">관심 품목 선택</label>
+                    <select id="product">
+                        <option value="TA300">TA300 RGB (플래그십 어항형)</option>
+                        <option value="TA100">TA100 시리즈 (간판 어항형)</option>
+                        <option value="TA200">TA200 AIR1 (퍼포먼스 쿨링)</option>
+                        <option value="TM300">TM300 RGB (컴팩트 게이밍)</option>
+                        <option value="TM200">TM200 AIR1 (미니 풀메쉬)</option>
+                        <option value="TM100">TM100 시리즈 (미니 어항형)</option>
+                        <option value="TM40">TM40 Standard (오피셜 가성비)</option>
+                        <option value="TM50">TM50 Black (가성비 메시)</option>
+                        <option value="THERMANOVA">THERMANOVA CPU 쿨러 시리즈</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">문의 내용 (수량 및 희망 단가 등)</label>
+                    <textarea id="message" rows="4" placeholder="대량 조립 견적 및 공급 단가 조율 요청 내용을 입력해 주세요."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">대량 구매 견적 요청하기</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h4>2M TWOMIN SYSTEM (투민시스템)</h4>
+                <p>본사 및 AS 센터 안내: PC 컴포넌트 및 하드웨어 전문 제조 유통 기업</p>
+                <p>하위 브랜드: THERMANOVA 쿨링 솔루션 솔루션 매칭 호환 완벽 지원</p>
+            </div>
+            <div class="footer-info" style="text-align: right;">
+                <p>© 2026 2M TWOMIN SYSTEM. All Rights Reserved.</p>
+                <p>품질 보증 규정 및 조립 불량 신속 대응 시스템 가동 중</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. 하단 메인 카테고리 탭 전환 스크립트
+        function openTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // 2. 상단 히어로 배너 자동 순차 롤링 스크립트 (3초 지정)
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideTimer;
+
+        function showSlides(index) {
+            if (index >= slides.length) currentSlideIndex = 0;
+            if (index < 0) currentSlideIndex = slides.length - 1;
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function currentSlide(index) {
+            clearInterval(slideTimer);
+            currentSlideIndex = index;
+            showSlides(currentSlideIndex);
+            startSlideShow();
+        }
+
+        function startSlideShow() {
+            slideTimer = setInterval(() => {
+                currentSlideIndex++;
+                showSlides(currentSlideIndex);
+            }, 3000);
+        }
+
+        // 3. 외부 메일 프로그램 실행을 막고 지정하신 안내 문구만 안전하게 출력하도록 핸들링
+        function handleMailSubmit() {
+            alert('문의가 접수되었습니다. 담당자가 신속히 연락드리겠습니다.');
+            
+            document.getElementById('company').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('contact').value = '';
+            document.getElementById('message').value = '';
+            
+            return false;
+        }
+
+        window.onload = function() {
+            startSlideShow();
+        };
+    </script>
+
+</body>
+</html>
