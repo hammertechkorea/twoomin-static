@@ -357,7 +357,7 @@
                 <li><a href="index.html#tabs-section">PRODUCTS</a></li>
                 <li><a href="index.html#b2b-form">SUPPORT</a></li>
             </ul>
-            <a href="#b2b-form" class="cta-btn">B2B 단가 문의</a>
+            <a href="index.html#b2b-form" class="cta-btn">B2B 단가 문의</a>
         </div>
     </header>
 
@@ -381,7 +381,14 @@
                     <!-- 자바스크립트로 동적 로드 -->
                 </div>
                 
-                <button class="b2b-btn" onclick="location.href='#b2b-form'">B2B 파트너 특별 단가 문의</button>
+                <button class="b2b-btn" onclick="location.href='index.html#b2b-form'">B2B 파트너 특별 단가 문의</button>
+            </div>
+        </section>
+
+        <!-- 상세 스펙시트 이미지 영역 -->
+        <section id="detail-image-section" style="background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 40px; text-align: center; display: none;">
+            <div style="max-width: 1000px; margin: 0 auto; overflow: hidden; border-radius: 8px;">
+                <img id="detail-spec-image" src="" alt="상세 스펙시트" style="width: 100%; height: auto; display: block;">
             </div>
         </section>
 
@@ -402,53 +409,6 @@
                 </tbody>
             </table>
         </section>
-
-        <!-- B2B 문의 양식 -->
-        <section class="b2b-lead-section" id="b2b-form">
-            <div class="lead-container">
-                <h2>B2B 비즈니스 및 대량 구매 견적 문의</h2>
-                <p>신속하게 견적 및 제안서를 메일로 제공해 드립니다.</p>
-                
-                <form action="https://formsubmit.co/psh@hammertech.co.kr" method="POST">
-                    <input type="hidden" name="_subject" value="[투민시스템] 상세페이지 발송 B2B 견적 문의">
-                    <input type="hidden" id="redirect-url" name="_next" value="https://twominsystem.com/">
-                    <input type="hidden" name="_captcha" value="false">
-
-                    <div class="form-group">
-                        <label for="company">업체명 / 기업명</label>
-                        <input type="text" id="company" name="company" placeholder="예: 투민시스템 파트너" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">담당자명</label>
-                        <input type="text" id="name" name="name" placeholder="홍길동 팀장" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact">연락처</label>
-                        <input type="text" id="contact" name="contact" placeholder="010-1234-5678" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="product">문의 대상 품목</label>
-                        <select id="product" name="product">
-                            <option id="form-product-option" value="" selected>로딩 중...</option>
-                            <option value="TA300">TA300 RGB (플래그십 어항형)</option>
-                            <option value="TA100">TA100 시리즈 (간판 어항형)</option>
-                            <option value="TA200">TA200 AIR1 (퍼포먼스 쿨링)</option>
-                            <option value="TM300">TM300 RGB (컴팩트 게이밍)</option>
-                            <option value="TM200">TM200 AIR1 (미니 풀메쉬)</option>
-                            <option value="TM100">TM100 시리즈 (미니 어항형)</option>
-                            <option value="TM40">TM40 Standard (오피셜 가성비)</option>
-                            <option value="TM50">TM50 Black (가성비 메시)</option>
-                            <option value="THERMANOVA">THERMANOVA CPU 쿨러 시리즈</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">문의 내용 (수량 및 희망 단가 등)</label>
-                        <textarea id="message" name="message" rows="4" placeholder="대량 조립 견적 및 공급 단가 조율 요청 내용을 입력해 주세요."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">대량 구매 견적 요청하기</button>
-                </form>
-            </div>
-        </section>
     </main>
 
     <footer>
@@ -459,7 +419,7 @@
                     <p style="color: #fff; font-weight: 600; font-size: 13px; margin-bottom: 6px;">(주)투민시스템</p>
                     <p>대표이사 : 김부중 / 사업자등록번호 : 884-86-01395</p>
                     <p>주소 : 서울 용산구 청파로 20길 9, 대주피오레 아이피아 1층 2~4호</p>
-                    <p style="margin-top: 4px;">유통/B2B 문의 : <a href="#b2b-form" style="color: #007aff; text-decoration: underline; font-weight: 500;">B2B 전용 문의 폼 바로가기</a></p>
+                    <p style="margin-top: 4px;">유통/B2B 문의 : <a href="index.html#b2b-form" style="color: #007aff; text-decoration: underline; font-weight: 500;">B2B 전용 문의 폼 바로가기</a></p>
                 </div>
                 
                 <div class="family-brands" style="margin-bottom: 25px;">
@@ -505,6 +465,7 @@
                 badge: 'FLAGSHIP PREMIUM',
                 subtext: '경계를 허물다. 무결점 프레임리스 3면 파노라마 뷰 어항 케이스',
                 img: 'TA300_RGB_Black_1000x1000.jpg',
+                detailImg: 'TA300_detail.jpg',
                 quickSpecs: [
                     { label: '규격', val: 'ATX 미들타워 (파노라마 뷰)' },
                     { label: '라디에이터', val: '상단/측면 최대 360mm 지원' },
@@ -874,8 +835,22 @@
                 tableBody.appendChild(tr);
             }
             
-            // F. 폼 전용 리다이렉트 URL 업데이트
-            document.getElementById('redirect-url').value = window.location.href;
+            // F. 상세 스펙시트 이미지 로드 여부 판단 및 텍스트 섹션 토글
+            const detailImgSection = document.getElementById('detail-image-section');
+            const marketingContainer = document.getElementById('marketing-container');
+            const specsTableSection = document.querySelector('.specs-table-section');
+            
+            if (product.detailImg) {
+                detailImgSection.style.display = 'block';
+                document.getElementById('detail-spec-image').src = product.detailImg;
+                
+                marketingContainer.style.display = 'none';
+                specsTableSection.style.display = 'none';
+            } else {
+                detailImgSection.style.display = 'none';
+                marketingContainer.style.display = 'block';
+                specsTableSection.style.display = 'block';
+            }
         }
 
         // 4. 페이지 로딩 즉시 실행
