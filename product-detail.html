@@ -489,12 +489,17 @@
                 <div id="color-selector-container" class="color-selector-wrapper"></div>
                 
                 <!-- 확대 축소 버튼 -->
-                <button id="zoom-toggle-btn" class="zoom-btn" onclick="toggleZoom()">
+                <button id="zoom-toggle-btn" class="zoom-btn" onclick="toggleZoom()" style="display: none;">
                     <span>🔍</span> <span id="zoom-btn-text">크게 보기 (Zoom)</span>
                 </button>
             </div>
             
-            <div id="detail-image-wrapper" class="detail-image-wrapper">
+            <!-- 색상 선택 안내 메시지 -->
+            <div id="color-select-guide" style="display: none; font-size: 15px; font-weight: 500; color: #8e8e93; padding: 60px 20px; border: 2px dashed #e5e5ea; border-radius: 8px; margin: 0 auto; max-width: 1200px; background-color: #f8f9fa;">
+                🎨 상세 스펙 인포그래픽을 확인하시려면 상단에서 원하시는 색상(블랙 / 화이트) 버튼을 선택해 주세요.
+            </div>
+            
+            <div id="detail-image-wrapper" class="detail-image-wrapper" style="display: none;">
                 <img id="detail-spec-image" src="" alt="상세 스펙시트">
             </div>
         </section>
@@ -962,6 +967,8 @@
             if (zoomBtn) zoomBtn.classList.remove('active');
             if (zoomText) zoomText.innerText = '크게 보기 (Zoom)';
 
+            const colorSelectGuide = document.getElementById('color-select-guide');
+
             if (product.detailImgs || product.detailImg) {
                 detailImgSection.style.display = 'block';
                 marketingContainer.style.display = 'none';
@@ -972,14 +979,15 @@
                     colorSelectorContainer.style.display = 'flex';
                     colorSelectorContainer.innerHTML = `<span class="color-selector-title">색상 선택:</span>`;
                     
+                    // 기본 상태: 안내 가이드 보이고 이미지/확대 버튼 숨김
+                    if (colorSelectGuide) colorSelectGuide.style.display = 'block';
+                    if (detailImgWrapper) detailImgWrapper.style.display = 'none';
+                    if (zoomBtn) zoomBtn.style.display = 'none';
+                    
                     // 각 색상 버튼 생성
-                    Object.entries(product.detailImgs).forEach(([colorKey, imgPath], index) => {
+                    Object.entries(product.detailImgs).forEach(([colorKey, imgPath]) => {
                         const btn = document.createElement('button');
                         btn.className = 'color-btn';
-                        if (index === 0) {
-                            btn.classList.add('active');
-                            detailSpecImg.src = imgPath + '?v=202606251623';
-                        }
                         
                         // 색상 원(dot) 추가
                         const dot = document.createElement('span');
@@ -995,8 +1003,12 @@
                             colorSelectorContainer.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
                             // 클릭된 버튼 active 추가
                             btn.classList.add('active');
-                            // 이미지 변경
+                            
+                            // 이미지 로드 및 영역 보이기
                             detailSpecImg.src = imgPath + '?v=202606251623';
+                            if (colorSelectGuide) colorSelectGuide.style.display = 'none';
+                            if (detailImgWrapper) detailImgWrapper.style.display = 'block';
+                            if (zoomBtn) zoomBtn.style.display = 'inline-flex';
                         };
                         
                         colorSelectorContainer.appendChild(btn);
@@ -1004,6 +1016,8 @@
                 } else {
                     detailControlBar.style.display = 'none';
                     colorSelectorContainer.style.display = 'none';
+                    if (colorSelectGuide) colorSelectGuide.style.display = 'none';
+                    if (detailImgWrapper) detailImgWrapper.style.display = 'block';
                     detailSpecImg.src = product.detailImg + '?v=202606251623';
                 }
             } else {
