@@ -344,6 +344,102 @@
             .b2b-lead-section { padding: 40px 20px; }
             .footer-container { flex-direction: column; text-align: center; }
         }
+
+        /* 🎨 색상 선택기 및 이미지 확대/축소 스타일 */
+        .color-selector-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .color-selector-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1c1c1e;
+        }
+        .color-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border: 2px solid #e5e5ea;
+            border-radius: 30px;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            color: #48484a;
+            transition: all 0.2s ease;
+        }
+        .color-btn:hover {
+            border-color: #007aff;
+            color: #007aff;
+        }
+        .color-btn.active {
+            border-color: #007aff;
+            background-color: #007aff;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 122, 255, 0.25);
+        }
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+        .color-dot.black {
+            background-color: #000;
+        }
+        .color-dot.white {
+            background-color: #fff;
+        }
+        .color-btn.active .color-dot.white {
+            border-color: #fff;
+        }
+
+        /* 상세 이미지 스크롤 및 확대/축소 */
+        .detail-image-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            -webkit-overflow-scrolling: touch;
+        }
+        .detail-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: width 0.3s ease;
+        }
+        .detail-image-wrapper.zoomed img {
+            width: 1100px;
+            max-width: none;
+        }
+
+        .zoom-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: 2px solid #e5e5ea;
+            border-radius: 30px;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            color: #007aff;
+            transition: all 0.2s;
+        }
+        .zoom-btn:hover {
+            border-color: #007aff;
+            background-color: #f0f7ff;
+        }
+        .zoom-btn.active {
+            background-color: #007aff;
+            color: #fff;
+            border-color: #007aff;
+        }
     </style>
 </head>
 <body>
@@ -386,9 +482,20 @@
         </section>
 
         <!-- 상세 스펙시트 이미지 영역 -->
-        <section id="detail-image-section" style="background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 40px; text-align: center; display: none;">
-            <div style="max-width: 1000px; margin: 0 auto; overflow: hidden; border-radius: 8px;">
-                <img id="detail-spec-image" src="" alt="상세 스펙시트" style="width: 100%; height: auto; display: block;">
+        <section id="detail-image-section" style="background-color: #fff; padding: 25px 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 40px; text-align: center; display: none;">
+            <!-- 상단 컨트롤 바 (색상 선택 + 확대 버튼) -->
+            <div id="detail-control-bar" style="display: none; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid #f1f3f5; padding-bottom: 20px;">
+                <!-- 색상 선택기 -->
+                <div id="color-selector-container" class="color-selector-wrapper"></div>
+                
+                <!-- 확대 축소 버튼 -->
+                <button id="zoom-toggle-btn" class="zoom-btn" onclick="toggleZoom()">
+                    <span>🔍</span> <span id="zoom-btn-text">크게 보기 (Zoom)</span>
+                </button>
+            </div>
+            
+            <div id="detail-image-wrapper" class="detail-image-wrapper">
+                <img id="detail-spec-image" src="" alt="상세 스펙시트">
             </div>
         </section>
 
@@ -465,13 +572,17 @@
                 badge: 'FLAGSHIP PREMIUM',
                 subtext: '경계를 허물다. 무결점 프레임리스 3면 파노라마 뷰 어항 케이스',
                 img: 'TA300_RGB_Black_1000x1000.jpg',
-                detailImg: 'TA300_detail.jpg',
+                detailImgs: {
+                    'black': 'TA300_detail_black.jpg',
+                    'white': 'TA300_detail_white.jpg'
+                },
                 quickSpecs: [
                     { label: '규격', val: 'ATX 미들타워 (파노라마 뷰)' },
                     { label: '라디에이터', val: '상단/측면 최대 360mm 지원' },
                     { label: '기본 쿨링팬', val: '리버스 RGB 3개 + 정방향 RGB 1개' },
                     { label: 'VGA 장착', val: '최대 410mm 여유 공간' },
                     { label: 'CPU 쿨러', val: '최대 높이 180mm 호환' },
+                    { label: '색상', val: '블랙 (Black) / 화이트 (White) 선택 가능' },
                     { label: '특징', val: '3면 프레임리스 강화유리 레이아웃' }
                 ],
                 marketing: [
@@ -839,17 +950,83 @@
             const detailImgSection = document.getElementById('detail-image-section');
             const marketingContainer = document.getElementById('marketing-container');
             const specsTableSection = document.querySelector('.specs-table-section');
+            const detailControlBar = document.getElementById('detail-control-bar');
+            const colorSelectorContainer = document.getElementById('color-selector-container');
+            const detailSpecImg = document.getElementById('detail-spec-image');
             
-            if (product.detailImg) {
+            // 확대 상태 초기화
+            const detailImgWrapper = document.getElementById('detail-image-wrapper');
+            if (detailImgWrapper) detailImgWrapper.classList.remove('zoomed');
+            const zoomBtn = document.getElementById('zoom-toggle-btn');
+            const zoomText = document.getElementById('zoom-btn-text');
+            if (zoomBtn) zoomBtn.classList.remove('active');
+            if (zoomText) zoomText.innerText = '크게 보기 (Zoom)';
+
+            if (product.detailImgs || product.detailImg) {
                 detailImgSection.style.display = 'block';
-                document.getElementById('detail-spec-image').src = product.detailImg;
-                
                 marketingContainer.style.display = 'none';
                 specsTableSection.style.display = 'none';
+                
+                if (product.detailImgs) {
+                    detailControlBar.style.display = 'flex';
+                    colorSelectorContainer.style.display = 'flex';
+                    colorSelectorContainer.innerHTML = `<span class="color-selector-title">색상 선택:</span>`;
+                    
+                    // 각 색상 버튼 생성
+                    Object.entries(product.detailImgs).forEach(([colorKey, imgPath], index) => {
+                        const btn = document.createElement('button');
+                        btn.className = 'color-btn';
+                        if (index === 0) {
+                            btn.classList.add('active');
+                            detailSpecImg.src = imgPath;
+                        }
+                        
+                        // 색상 원(dot) 추가
+                        const dot = document.createElement('span');
+                        dot.className = `color-dot ${colorKey}`;
+                        
+                        const labelText = document.createTextNode(colorKey === 'black' ? '블랙 (Black)' : '화이트 (White)');
+                        
+                        btn.appendChild(dot);
+                        btn.appendChild(labelText);
+                        
+                        btn.onclick = function() {
+                            // 모든 버튼 active 클래스 제거
+                            colorSelectorContainer.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                            // 클릭된 버튼 active 추가
+                            btn.classList.add('active');
+                            // 이미지 변경
+                            detailSpecImg.src = imgPath;
+                        };
+                        
+                        colorSelectorContainer.appendChild(btn);
+                    });
+                } else {
+                    detailControlBar.style.display = 'none';
+                    colorSelectorContainer.style.display = 'none';
+                    detailSpecImg.src = product.detailImg;
+                }
             } else {
                 detailImgSection.style.display = 'none';
                 marketingContainer.style.display = 'block';
                 specsTableSection.style.display = 'block';
+            }
+        }
+
+        // 이미지 확대/축소 토글 함수
+        function toggleZoom() {
+            const wrapper = document.getElementById('detail-image-wrapper');
+            const btn = document.getElementById('zoom-toggle-btn');
+            const btnText = document.getElementById('zoom-btn-text');
+            
+            wrapper.classList.toggle('zoomed');
+            
+            if (wrapper.classList.contains('zoomed')) {
+                btn.classList.add('active');
+                btnText.innerText = '화면에 맞춤 (Fit)';
+            } else {
+                btn.classList.remove('active');
+                btnText.innerText = '크게 보기 (Zoom)';
             }
         }
 
