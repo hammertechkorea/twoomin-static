@@ -489,9 +489,10 @@
             <h2>B2B 비즈니스 및 대량 구매 견적 문의</h2>
             <p>용산 유통망, 조립 PC 업체, 기업 대량 납품용 단가 및 제안서를 신속하게 제공합니다.</p>
             
-            <form onsubmit="handleFormSubmit(event)">
+            <form action="https://formsubmit.co/psh@hammertech.co.kr" method="POST">
                 <!-- FormSubmit 옵션 설정 -->
                 <input type="hidden" name="_subject" value="[투민시스템] 새로운 B2B 대량 견적 문의">
+                <input type="hidden" name="_next" value="https://twominsystem.com/">
                 <input type="hidden" name="_captcha" value="false">
 
                 <div class="form-group">
@@ -505,10 +506,6 @@
                 <div class="form-group">
                     <label for="contact">연락처</label>
                     <input type="text" id="contact" name="contact" placeholder="010-1234-5678" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">이메일 주소</label>
-                    <input type="email" id="email" name="email" placeholder="example@domain.com" required>
                 </div>
                 <div class="form-group">
                     <label for="product">관심 품목 선택</label>
@@ -625,63 +622,16 @@
             }, 3000);
         }
 
-        // 3. 비동기 개별 이메일 전송 핸들러 (참조 노출 방지용)
-        async function handleFormSubmit(event) {
-            event.preventDefault();
+        // 3. 외부 메일 프로그램 실행을 막고 지정하신 안내 문구만 안전하게 출력하도록 핸들링
+        function handleMailSubmit() {
+            alert('문의가 접수되었습니다. 담당자가 신속히 연락드리겠습니다.');
             
-            const submitBtn = document.querySelector('.submit-btn');
-            const originalBtnText = submitBtn.innerText;
-            submitBtn.innerText = '전송 중...';
-            submitBtn.disabled = true;
+            document.getElementById('company').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('contact').value = '';
+            document.getElementById('message').value = '';
             
-            const form = event.target;
-            const formData = new FormData(form);
-            const dataObject = {};
-            
-            formData.forEach((value, key) => {
-                dataObject[key] = value;
-            });
-            
-            const jsonBody = JSON.stringify(dataObject);
-            
-            const email1 = 'psh@hammertech.co.kr';
-            const email2 = 'rlaqnwnd1@hanmail.net';
-            
-            try {
-                // 두 메일 주소로 개별 전송하여 참조 노출 차단
-                const response1 = await fetch(`https://formsubmit.co/ajax/${email1}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: jsonBody
-                });
-                
-                const response2 = await fetch(`https://formsubmit.co/ajax/${email2}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: jsonBody
-                });
-                
-                if (response1.ok && response2.ok) {
-                    alert('견적 문의가 정상적으로 접수되었습니다. 담당자가 신속히 연락드리겠습니다.');
-                    form.reset();
-                } else {
-                    // 최초 1회 전송 시 FormSubmit 인증 메일이 발송될 수 있음
-                    alert('견적 문의가 접수되었습니다. (처음 발송하시는 경우 이메일 수신함에서 FormSubmit 인증 메일을 확인하고 인증을 완료해 주세요)');
-                    form.reset();
-                }
-            } catch (error) {
-                console.error('Error submitting form:', error);
-                alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
-            } finally {
-                submitBtn.innerText = originalBtnText;
-                submitBtn.disabled = false;
-            }
+            return false;
         }
 
         window.onload = function() {
