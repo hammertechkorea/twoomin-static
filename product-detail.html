@@ -473,6 +473,12 @@
                 <h1 id="product-title">제품 정보 로딩 중...</h1>
                 <p id="product-subtext" class="subtext">잠시만 기다려 주세요.</p>
                 
+                <!-- 상단 색상 선택기 -->
+                <div id="top-color-selector" class="color-selector-wrapper" style="margin-bottom: 20px; display: none;">
+                    <span class="color-selector-title">색상 선택:</span>
+                    <div id="top-color-buttons" style="display: inline-flex; gap: 10px;"></div>
+                </div>
+
                 <div class="quick-specs" id="quick-specs-grid">
                     <!-- 자바스크립트로 동적 로드 -->
                 </div>
@@ -576,7 +582,11 @@
                 category: '케이스',
                 badge: 'FLAGSHIP PREMIUM',
                 subtext: '경계를 허물다. 무결점 프레임리스 3면 파노라마 뷰 어항 케이스',
-                img: 'TA300_RGB_Black_1000x1000.jpg',
+                colors: ['black', 'white'],
+                img: {
+                    'black': 'TA300_RGB_Black_1000x1000.jpg',
+                    'white': 'TA300_RGB_White_1000x1000.jpg'
+                },
                 detailImgs: {
                     'black': 'TA300_RGB_Black_20260120.jpg',
                     'white': 'TA300_RGB_White_20260120.jpg'
@@ -612,7 +622,11 @@
                 category: '케이스',
                 badge: 'SIGNATURE 어항',
                 subtext: '완벽한 가성비와 튜닝 밸런스, 대중적인 파노라마 어항형 미들타워',
-                img: 'TA100썸네일.jpg',
+                colors: ['black', 'white'],
+                img: {
+                    'black': 'TA100썸네일.jpg',
+                    'white': 'TA100_white_1000x1000.jpg'
+                },
                 quickSpecs: [
                     { label: '규격', val: 'ATX 미들타워 (어항형)' },
                     { label: '라디에이터', val: '상단 최대 360mm 지원' },
@@ -641,7 +655,15 @@
                 category: '케이스',
                 badge: 'COOLING SPECIAL',
                 subtext: '흡기 효율 극대화! 버티컬 풀 메쉬 디자인 공기순환 스페셜리스트',
-                img: 'TA200 AIR1 Black_1000x1000.jpg',
+                colors: ['black', 'white'],
+                img: {
+                    'black': 'TA200 AIR1 Black_1000x1000.jpg',
+                    'white': 'TA200 AIR1 White_1000x1000.jpg'
+                },
+                detailImgs: {
+                    'black': 'TA200_detail_black.png',
+                    'white': 'TA200_detail_white.png'
+                },
                 quickSpecs: [
                     { label: '규격', val: 'ATX 미들타워 (쿨링 특화)' },
                     { label: '라디에이터', val: '상단/전면 최대 360mm 지원' },
@@ -696,7 +718,11 @@
                 category: '케이스',
                 badge: 'M-ATX PREMIUM',
                 subtext: '컴팩트 하이엔드의 정점, 미니 어항형 프레임리스 RGB 케이스',
-                img: 'TM300_RGB_Black_1000x1000.jpg',
+                colors: ['black', 'white'],
+                img: {
+                    'black': 'TM300_RGB_Black_1000x1000.jpg',
+                    'white': 'TM300_RGB_White_1000x1000.jpg'
+                },
                 quickSpecs: [
                     { label: '규격', val: 'M-ATX 미니타워 (어항형)' },
                     { label: '라디에이터', val: '상단 최대 240mm 지원' },
@@ -724,7 +750,11 @@
                 category: '케이스',
                 badge: 'MINI MESH',
                 subtext: '미니타워의 시원한 반전. 고강도 메시 테크놀로지 적용 미니 케이스',
-                img: 'TM200 AIR1 Black_1000x1000.jpg',
+                colors: ['black', 'white'],
+                img: {
+                    'black': 'TM200 AIR1 Black_1000x1000.jpg',
+                    'white': 'TM200 AIR1 White_1000x1000.jpg'
+                },
                 quickSpecs: [
                     { label: '규격', val: 'M-ATX 미니타워 (쿨링 특화)' },
                     { label: '라디에이터', val: '상단 최대 240mm 지원' },
@@ -752,7 +782,11 @@
                 category: '케이스',
                 badge: 'COMPACT 어항',
                 subtext: '미니멀 데스크테리어를 위한 어항형 큐브 섀시 미니 케이스',
-                img: 'TM100_black_1000x1000_1.jpg',
+                colors: ['black', 'white'],
+                img: {
+                    'black': 'TM100_black_1000x1000_1.jpg',
+                    'white': 'TM100_white_1000x1000_1.jpg'
+                },
                 quickSpecs: [
                     { label: '규격', val: 'M-ATX 미니타워 (어항형)' },
                     { label: '라디에이터', val: '상단/측면 최대 240mm 지원' },
@@ -894,10 +928,77 @@
             return params.get('model') || 'TA300'; // 기본값은 TA300
         }
 
-        // 3. 페이지 뷰 렌더링 함수
+        // 3. 페이지 뷰 렌더링 함수 및 상태 변수
+        let currentProduct = null;
+        let currentModelKey = null;
+
+        function selectColor(colorKey) {
+            const product = currentProduct;
+            if (!product) return;
+
+            // A. 모든 색상 버튼(상단 및 하단) active 클래스 동기화
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                if (btn.dataset.color === colorKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // B. 상단 제품 메인 이미지 변경
+            const mainImg = document.getElementById('product-img');
+            if (product.img && typeof product.img === 'object') {
+                mainImg.src = product.img[colorKey];
+            }
+
+            // C. 하단 상세 인포그래픽 이미지 변경 (존재할 경우)
+            const detailSpecImg = document.getElementById('detail-spec-image');
+            const colorSelectGuide = document.getElementById('color-select-guide');
+            const detailImgWrapper = document.getElementById('detail-image-wrapper');
+            const zoomBtn = document.getElementById('zoom-toggle-btn');
+
+            if (product.detailImgs && product.detailImgs[colorKey]) {
+                detailSpecImg.src = product.detailImgs[colorKey] + '?v=202606251700';
+                if (colorSelectGuide) colorSelectGuide.style.display = 'none';
+                if (detailImgWrapper) detailImgWrapper.style.display = 'block';
+                if (zoomBtn) zoomBtn.style.display = 'inline-flex';
+            }
+        }
+
+        function createColorButtons(container, product, position) {
+            container.innerHTML = '';
+            if (position === 'bottom') {
+                container.innerHTML = `<span class="color-selector-title">색상 선택:</span>`;
+            }
+            
+            product.colors.forEach(colorKey => {
+                const btn = document.createElement('button');
+                btn.className = 'color-btn';
+                btn.dataset.color = colorKey;
+                
+                // 색상 원(dot) 추가
+                const dot = document.createElement('span');
+                dot.className = `color-dot ${colorKey}`;
+                
+                const labelText = document.createTextNode(colorKey === 'black' ? '블랙 (Black)' : '화이트 (White)');
+                
+                btn.appendChild(dot);
+                btn.appendChild(labelText);
+                
+                btn.onclick = function() {
+                    selectColor(colorKey);
+                };
+                
+                container.appendChild(btn);
+            });
+        }
+
         function renderProductDetails() {
             const modelKey = getModelFromUrl().toUpperCase();
             const product = productDb[modelKey] || productDb['TA300']; // 데이터 없으면 TA300으로 매칭
+
+            currentModelKey = modelKey;
+            currentProduct = product;
 
             // A. 타이틀 및 기본 텍스트 갱신
             document.title = `${product.name} 상세 정보 - TWOMIN SYSTEM`;
@@ -906,15 +1007,34 @@
             document.getElementById('product-title').innerText = product.name;
             document.getElementById('product-subtext').innerText = product.subtext;
             document.getElementById('product-badge').innerText = product.badge;
-            document.getElementById('product-img').src = product.img;
-            document.getElementById('product-img').alt = product.name;
+
+            // 제품 메인 이미지 설정 (오브젝트일 경우 기본값 'black' 로드)
+            const mainImg = document.getElementById('product-img');
+            if (product.img && typeof product.img === 'object') {
+                mainImg.src = product.img['black'];
+            } else {
+                mainImg.src = product.img;
+            }
+            mainImg.alt = product.name;
 
             // B. 폼 전용 옵션 갱신
             const formOption = document.getElementById('form-product-option');
-            formOption.value = modelKey;
-            formOption.innerText = `${product.name} (${product.badge})`;
+            if (formOption) {
+                formOption.value = modelKey;
+                formOption.innerText = `${product.name} (${product.badge})`;
+            }
 
-            // C. 퀵 스펙 정보 그리드 채우기
+            // C. 상단 색상 선택기 렌더링
+            const topColorSelector = document.getElementById('top-color-selector');
+            const topColorButtons = document.getElementById('top-color-buttons');
+            if (product.colors) {
+                topColorSelector.style.display = 'block';
+                createColorButtons(topColorButtons, product, 'top');
+            } else {
+                topColorSelector.style.display = 'none';
+            }
+
+            // D. 퀵 스펙 정보 그리드 채우기
             const specsGrid = document.getElementById('quick-specs-grid');
             specsGrid.innerHTML = '';
             product.quickSpecs.forEach(spec => {
@@ -924,7 +1044,7 @@
                 specsGrid.appendChild(item);
             });
 
-            // D. 마케팅 핵심 특장점 채우기
+            // E. 마케팅 핵심 특장점 채우기
             document.getElementById('marketing-title-brand').innerText = product.name;
             const marketingGrid = document.getElementById('marketing-grid-items');
             marketingGrid.innerHTML = '';
@@ -939,7 +1059,7 @@
                 marketingGrid.appendChild(card);
             });
 
-            // E. 상세 세부 스펙 테이블 채우기
+            // F. 상세 세부 스펙 테이블 채우기
             const tableBody = document.getElementById('specs-table-body');
             tableBody.innerHTML = '';
             for (const [key, val] of Object.entries(product.specs)) {
@@ -951,7 +1071,7 @@
                 tableBody.appendChild(tr);
             }
             
-            // F. 상세 스펙시트 이미지 로드 여부 판단 및 텍스트 섹션 토글
+            // G. 상세 스펙시트 이미지 로드 여부 판단 및 텍스트 섹션 토글
             const detailImgSection = document.getElementById('detail-image-section');
             const marketingContainer = document.getElementById('marketing-container');
             const specsTableSection = document.querySelector('.specs-table-section');
@@ -977,42 +1097,12 @@
                 if (product.detailImgs) {
                     detailControlBar.style.display = 'flex';
                     colorSelectorContainer.style.display = 'flex';
-                    colorSelectorContainer.innerHTML = `<span class="color-selector-title">색상 선택:</span>`;
+                    createColorButtons(colorSelectorContainer, product, 'bottom');
                     
                     // 기본 상태: 안내 가이드 보이고 이미지/확대 버튼 숨김
                     if (colorSelectGuide) colorSelectGuide.style.display = 'block';
                     if (detailImgWrapper) detailImgWrapper.style.display = 'none';
                     if (zoomBtn) zoomBtn.style.display = 'none';
-                    
-                    // 각 색상 버튼 생성
-                    Object.entries(product.detailImgs).forEach(([colorKey, imgPath]) => {
-                        const btn = document.createElement('button');
-                        btn.className = 'color-btn';
-                        
-                        // 색상 원(dot) 추가
-                        const dot = document.createElement('span');
-                        dot.className = `color-dot ${colorKey}`;
-                        
-                        const labelText = document.createTextNode(colorKey === 'black' ? '블랙 (Black)' : '화이트 (White)');
-                        
-                        btn.appendChild(dot);
-                        btn.appendChild(labelText);
-                        
-                        btn.onclick = function() {
-                            // 모든 버튼 active 클래스 제거
-                            colorSelectorContainer.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-                            // 클릭된 버튼 active 추가
-                            btn.classList.add('active');
-                            
-                            // 이미지 로드 및 영역 보이기
-                            detailSpecImg.src = imgPath + '?v=202606251700';
-                            if (colorSelectGuide) colorSelectGuide.style.display = 'none';
-                            if (detailImgWrapper) detailImgWrapper.style.display = 'block';
-                            if (zoomBtn) zoomBtn.style.display = 'inline-flex';
-                        };
-                        
-                        colorSelectorContainer.appendChild(btn);
-                    });
                 } else {
                     detailControlBar.style.display = 'none';
                     colorSelectorContainer.style.display = 'none';
