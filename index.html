@@ -492,19 +492,19 @@
             <form action="#" method="POST" onsubmit="return handleMailSubmit();">
                 <div class="form-group">
                     <label for="company">업체명 / 기업명</label>
-                    <input type="text" id="company" placeholder="예: 투민시스템 파트너" required>
+                    <input type="text" id="company" name="company" placeholder="예: 투민시스템 파트너" required>
                 </div>
                 <div class="form-group">
                     <label for="name">담당자명</label>
-                    <input type="text" id="name" placeholder="홍길동 팀장" required>
+                    <input type="text" id="name" name="name" placeholder="홍길동 팀장" required>
                 </div>
                 <div class="form-group">
                     <label for="contact">연락처</label>
-                    <input type="text" id="contact" placeholder="010-1234-5678" required>
+                    <input type="text" id="contact" name="contact" placeholder="010-1234-5678" required>
                 </div>
                 <div class="form-group">
                     <label for="product">관심 품목 선택</label>
-                    <select id="product">
+                    <select id="product" name="product">
                         <option value="TA300">TA300 RGB (플래그십 어항형)</option>
                         <option value="TA100">TA100 시리즈 (간판 어항형)</option>
                         <option value="TA200">TA200 AIR1 (퍼포먼스 쿨링)</option>
@@ -518,7 +518,7 @@
                 </div>
                 <div class="form-group">
                     <label for="message">문의 내용 (수량 및 희망 단가 등)</label>
-                    <textarea id="message" rows="4" placeholder="대량 조립 견적 및 공급 단가 조율 요청 내용을 입력해 주세요."></textarea>
+                    <textarea id="message" name="message" rows="4" placeholder="대량 조립 견적 및 공급 단가 조율 요청 내용을 입력해 주세요."></textarea>
                 </div>
                 <button type="submit" class="submit-btn">대량 구매 견적 요청하기</button>
             </form>
