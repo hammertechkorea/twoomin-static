@@ -26,9 +26,10 @@ gh auth login
 ```
 화면 안내에 따라 웹 브라우저에서 로그인합니다.
 
-### 3) 투민 저장소 생성 및 연동 (최초 1회)
-GitHub에 `twoomin-static` (또는 원하시는 이름) 저장소를 만드신 후, 아래 명령어를 통해 현재 폴더를 Git 저장소로 초기화하고 연결합니다.
+### 3) 투민 저장소 생성 및 연동 (완료됨)
+현재 폴더는 이미 Git 저장소로 초기화되어 `hammertechkorea/twoomin-static` 저장소와 연동이 완료되었습니다.
 
+참고용 최초 연동 명령어:
 ```bash
 # 1. 현재 폴더로 이동 (Git Bash 또는 PowerShell)
 cd "e:/업무/투민 홈페이지/홈페이지 자료/twoomin"
@@ -36,8 +37,8 @@ cd "e:/업무/투민 홈페이지/홈페이지 자료/twoomin"
 # 2. Git 초기화
 "C:/Program Files/Git/cmd/git.exe" init
 
-# 3. GitHub 원격 저장소 연결 (깃허브 주소를 적어주세요)
-"C:/Program Files/Git/cmd/git.exe" remote add origin https://github.com/[사용자이름]/[저장소이름].git
+# 3. GitHub 원격 저장소 연결
+"C:/Program Files/Git/cmd/git.exe" remote add origin https://github.com/hammertechkorea/twoomin-static.git
 
 # 4. 최초 파일 올리기
 "C:/Program Files/Git/cmd/git.exe" add .
