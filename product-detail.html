@@ -978,7 +978,7 @@
                         btn.className = 'color-btn';
                         if (index === 0) {
                             btn.classList.add('active');
-                            detailSpecImg.src = imgPath;
+                            detailSpecImg.src = imgPath + '?v=202606251623';
                         }
                         
                         // 색상 원(dot) 추가
@@ -996,7 +996,7 @@
                             // 클릭된 버튼 active 추가
                             btn.classList.add('active');
                             // 이미지 변경
-                            detailSpecImg.src = imgPath;
+                            detailSpecImg.src = imgPath + '?v=202606251623';
                         };
                         
                         colorSelectorContainer.appendChild(btn);
@@ -1004,7 +1004,7 @@
                 } else {
                     detailControlBar.style.display = 'none';
                     colorSelectorContainer.style.display = 'none';
-                    detailSpecImg.src = product.detailImg;
+                    detailSpecImg.src = product.detailImg + '?v=202606251623';
                 }
             } else {
                 detailImgSection.style.display = 'none';
