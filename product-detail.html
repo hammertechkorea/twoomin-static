@@ -691,7 +691,7 @@
                 }
             },
             'TA10': {
-                name: 'TA10 Standard',
+                name: 'TA10',
                 category: '케이스',
                 badge: 'OFFICIAL BASIC',
                 subtext: '사무실 및 공공기관 조립 최적화 탄탄한 기본형 미들타워',
@@ -826,11 +826,19 @@
                 }
             },
             'TM40': {
-                name: 'TM40 Standard',
+                name: 'TM40',
                 category: '케이스',
                 badge: 'OFFICE 가성비',
                 subtext: '회사 및 기업 대량 납품 최적화, 압도적 가성비의 미니 타워',
-                img: 'TM40_화이트_1000x1000.jpg',
+                colors: ['black', 'white'],
+                img: {
+                    'black': 'TM40_black_1000x1000.jpg',
+                    'white': 'TM40_화이트_1000x1000.jpg'
+                },
+                detailImgs: {
+                    'black': 'TM40_detail_black.jpg',
+                    'white': 'TM40_detail_white.jpg'
+                },
                 quickSpecs: [
                     { label: '규격', val: 'M-ATX 미니타워' },
                     { label: '섀시 두께', val: '강도 높인 가성비 에디션' },
