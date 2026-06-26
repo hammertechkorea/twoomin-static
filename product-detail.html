@@ -123,18 +123,20 @@
         
         /* 퀵 스펙 정보 그리드 */
         .quick-specs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px 30px;
             margin-bottom: 30px;
             border-top: 1px solid #e5e5ea;
             border-bottom: 1px solid #e5e5ea;
             padding: 20px 0;
         }
         .spec-item {
+            flex: 1 1 calc(50% - 15px);
             display: flex;
             flex-direction: column;
             gap: 5px;
+            min-width: fit-content;
         }
         .spec-item label {
             font-size: 12px;
@@ -145,6 +147,7 @@
             font-size: 15px;
             color: #1c1c1e;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .summary-right .b2b-btn {
