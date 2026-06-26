@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객지원 자료실 - TWOMIN SYSTEM</title>
+    <meta name="description" content="투민시스템 공식 고객지원 자료실입니다. PC 케이스 및 CPU 쿨러 제품 설명서 및 기술 자료를 편리하게 다운로드받으실 수 있습니다.">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* 기본 폰트 및 초기화 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; }
+        body { background-color: #f8f9fa; color: #333; }
+        a { text-decoration: none; color: inherit; }
+
+        /* 상단 내비게이션 (GNB) */
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e9ecef;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        .logo { font-size: 22px; font-weight: 800; color: #007aff; } /* 투민 스카이 블루 */
+        .menu { display: flex; list-style: none; gap: 30px; font-weight: 500; }
+        .menu li a:hover { color: #007aff; }
+        .menu li.active a { color: #007aff; font-weight: 700; }
+        .cta-btn {
+            background-color: #ff6b00; /* 써마노바 에너제틱 오렌지 */
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* 히어로 영역 */
+        .support-hero {
+            background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
+            color: #fff;
+            padding: 140px 20px 80px 20px;
+            text-align: center;
+        }
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .support-hero h1 {
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+        .support-hero p {
+            font-size: 16px;
+            color: #aeaeb2;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* 검색 영역 */
+        .search-wrapper {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .search-input {
+            width: 100%;
+            padding: 18px 24px 18px 55px;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .search-input::placeholder {
+            color: #8e8e93;
+        }
+        .search-input:focus {
+            border-color: #007aff;
+            background-color: #fff;
+            color: #1c1c1e;
+            box-shadow: 0 0 15px rgba(0, 122, 255, 0.35);
+        }
+        .search-icon {
+            position: absolute;
+            left: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: #8e8e93;
+            pointer-events: none;
+            transition: fill 0.3s;
+        }
+        .search-input:focus ~ .search-icon {
+            fill: #007aff;
+        }
+
+        /* 메인 컨텐츠 레이아웃 */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* 필터 탭 */
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .filter-tabs {
+            display: inline-flex;
+            gap: 10px;
+            background-color: #e5e5ea;
+            padding: 6px;
+            border-radius: 8px;
+        }
+        .filter-btn {
+            padding: 10px 24px;
+            border: none;
+            background: none;
+            font-size: 15px;
+            font-weight: bold;
+            color: #636366;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .filter-btn.active {
+            background-color: #ffffff;
+            color: #007aff;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* 다운로드 리스트 영역 */
+        .download-list-section {
+            margin-bottom: 50px;
+        }
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* 다운로드 아이템 카드 */
+        .download-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e5ea;
+            border-radius: 12px;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .download-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-color: #007aff;
+        }
+        
+        .card-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+        }
+        
+        /* 파일 아이콘 스타일 */
+        .file-icon-box {
+            width: 48px;
+            height: 48px;
+            background-color: #ffeef0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .file-icon-box svg {
+            width: 26px;
+            height: 26px;
+            fill: #ff3b30; /* PDF 전용 레드 */
+        }
+        
+        .doc-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        /* 뱃지 */
+        .badge-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .category-badge {
+            background-color: #f2f2f7;
+            color: #8e8e93;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .model-badge {
+            background-color: #e1f0ff;
+            color: #007aff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .doc-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1c1c1e;
+            line-height: 1.4;
+        }
+        .doc-info {
+            font-size: 13px;
+            color: #8e8e93;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .download-btn {
+            background-color: #007aff;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+        .download-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* 정보 알림/안내 카드 (매뉴얼 미제공 모델 안내용) */
+        .info-notification-card {
+            background-color: #f0f7ff;
+            border: 1px solid #b3d7ff;
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .info-icon-box {
+            width: 44px;
+            height: 44px;
+            background-color: #e1f0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .info-icon-box svg {
+            width: 22px;
+            height: 22px;
+            fill: #007aff;
+        }
+        .info-content h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0056b3;
+            margin-bottom: 8px;
+        }
+        .info-content p {
+            font-size: 14px;
+            color: #48484a;
+            line-height: 1.6;
+        }
+        
+        /* 검색 결과 없음 */
+        .no-results-card {
+            background-color: #ffffff;
+            border: 1px dashed #c7c7cc;
+            border-radius: 12px;
+            padding: 50px 20px;
+            text-align: center;
+            color: #8e8e93;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .no-results-card svg {
+            width: 40px;
+            height: 40px;
+            fill: #aeaeb2;
+        }
+        .no-results-card p {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* A/S 센터 안내 배너 */
+        .as-banner-section {
+            margin-top: 60px;
+        }
+        .as-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e5ea;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .as-card-left {
+            flex: 1 1 500px;
+        }
+        .as-card-left h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1c1c1e;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .as-card-left h2 span {
+            color: #007aff;
+        }
+        .as-card-left p {
+            font-size: 14px;
+            color: #636366;
+            line-height: 1.6;
+        }
+        
+        .as-card-right {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e1f0ff 100%);
+            border-radius: 12px;
+            padding: 25px 35px;
+            text-align: center;
+            min-width: 280px;
+            flex: 0 1 auto;
+        }
+        .as-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #007aff;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .as-phone {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1c1c1e;
+            margin-bottom: 10px;
+        }
+        .as-hours {
+            font-size: 12px;
+            color: #48484a;
+            font-weight: 500;
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 푸터 영역 */
+        footer { background-color: #1c1c1e; color: #8e8e93; padding: 40px 20px; font-size: 12px; line-height: 1.6; margin-top: 80px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .footer-info h4 { color: #fff; font-size: 14px; margin-bottom: 10px; }
+
+        /* 📱 반응형 미디어 쿼리 */
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 15px; text-align: center; }
+            .menu { gap: 15px; font-size: 14px; }
+            .support-hero { padding: 180px 20px 60px 20px; }
+            .support-hero h1 { font-size: 28px; }
+            .support-hero p { font-size: 14px; }
+            .download-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px; }
+            .download-btn { width: 100%; justify-content: center; }
+            .as-card { padding: 25px; }
+            .as-card-right { width: 100%; }
+            .footer-container { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 상단 내비게이션 (GNB) -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">TWOMIN SYSTEM</a>
+            <ul class="menu">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.html#tabs-section">BRAND</a></li>
+                <li><a href="index.html#tabs-section">PRODUCTS</a></li>
+                <li class="active"><a href="support.html">SUPPORT</a></li>
+            </ul>
+            <a href="index.html#b2b-form" class="cta-btn">B2B 단가 문의</a>
+        </div>
+    </header>
+
+    <!-- 고객지원 히어로 섹션 -->
+    <section class="support-hero">
+        <div class="hero-container">
+            <h1>고객지원 자료실</h1>
+            <p>투민시스템 제품군 중 조립 매뉴얼 및 가이드가 필요한 제품들의 관련 자료 다운로드 서비스를 제공합니다.</p>
+            
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="제품명 또는 모델명을 검색하세요 (예: TA300, TM300...)" oninput="handleSearch()">
+                <svg class="search-icon" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main>
+        <!-- 카테고리 퀵 탭 -->
+        <div class="filter-section">
+            <div class="filter-tabs">
+                <button class="filter-btn active" id="btn-all" onclick="filterCategory('all')">전체</button>
+                <button class="filter-btn" id="btn-case" onclick="filterCategory('case')">PC 케이스</button>
+                <button class="filter-btn" id="btn-cooler" onclick="filterCategory('cooler')">CPU 쿨러</button>
+            </div>
+        </div>
+
+        <!-- 다운로드 리스트 영역 -->
+        <section class="download-list-section">
+            <div class="list-container" id="downloadList">
+                <!-- 자바스크립트로 동적 렌더링 -->
+            </div>
+        </section>
+
+        <!-- A/S 안내 섹션 -->
+        <section class="as-banner-section">
+            <div class="as-card">
+                <div class="as-card-left">
+                    <h2>투민시스템 <span>A/S 센터 안내</span></h2>
+                    <p style="margin-bottom: 12px; font-weight: 600; color: #1c1c1e;">접수처 : 서울 용산구 청파로 20길 9, 대주피오레 아이피아 1층 2~4호 (주)투민시스템</p>
+                    <p>※ 제품 보증 관련 문의 및 A/S 접수는 택배 또는 사전 유선 연락 후 방문 접수가 가능합니다.</p>
+                    <p>택배 발송 시에는 문제 증상, 연락처, 회신 받으실 주소를 메모하여 동봉해 주시기 바랍니다.</p>
+                </div>
+                <div class="as-card-right">
+                    <div class="as-label">고객지원센터</div>
+                    <div class="as-phone">02) 714-9627</div>
+                    <div class="as-hours">평일 10:00 ~ 17:00 (주말/공휴일 휴무)</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 푸터 영역 -->
+    <footer>
+        <div class="footer-container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; max-width: 1200px; margin: 0 auto;">
+            <!-- 좌측 영역: 기업 공식 정보 및 브랜드 -->
+            <div class="footer-left" style="flex: 1 1 500px; min-width: 300px;">
+                <h3 class="footer-logo" style="font-size: 24px; font-weight: 800; color: #007aff; margin-bottom: 15px; letter-spacing: 0.5px;">TWOMIN SYSTEM</h3>
+                <div class="company-details" style="font-size: 12px; color: #8e8e93; line-height: 1.8; margin-bottom: 20px;">
+                    <p style="color: #fff; font-weight: 600; font-size: 13px; margin-bottom: 6px;">(주)투민시스템</p>
+                    <p>대표이사 : 김부중 / 사업자등록번호 : 884-86-01395</p>
+                    <p>주소 : 서울 용산구 청파로 20길 9, 대주피오레 아이피아 1층 2~4호</p>
+                    <p style="margin-top: 4px;">유통/B2B 문의 : <a href="index.html#b2b-form" style="color: #007aff; text-decoration: underline; font-weight: 500;">B2B 전용 문의 폼 바로가기</a></p>
+                </div>
+                
+                <!-- 패밀리 브랜드 영역 -->
+                <div class="family-brands" style="margin-bottom: 25px;">
+                    <p style="font-size: 11px; color: #fff; font-weight: bold; margin-bottom: 8px; letter-spacing: 0.5px;">FAMILY BRAND</p>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="index.html#tabs-section" style="font-size: 11px; color: #8e8e93; border: 1px solid #3a3a3c; padding: 6px 12px; border-radius: 4px; transition: all 0.2s;" onmouseover="this.style.color='#fff'; this.style.borderColor='#8e8e93'" onmouseout="this.style.color='#8e8e93'; this.style.borderColor='#3a3a3c'">투민시스템 PC CASE</a>
+                        <a href="index.html#tabs-section" style="font-size: 11px; color: #8e8e93; border: 1px solid #3a3a3c; padding: 6px 12px; border-radius: 4px; transition: all 0.2s;" onmouseover="this.style.color='#fff'; this.style.borderColor='#8e8e93'" onmouseout="this.style.color='#8e8e93'; this.style.borderColor='#3a3a3c'">써마노바 CPU COOLER</a>
+                    </div>
+                </div>
+                
+                <p style="color: #636366; font-size: 11px;">© 2026 TWOMIN SYSTEM. All Rights Reserved.</p>
+            </div>
+            
+            <!-- 우측 영역: A/S 접수센터 안내 -->
+            <div class="footer-right" style="flex: 1 1 400px; max-width: 500px; min-width: 280px;">
+                <h4 style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #007aff; padding-bottom: 10px; margin-bottom: 15px; color: #fff;">
+                    <span style="font-size: 14px; font-weight: bold; letter-spacing: 0.5px;">A/S 접수센터</span>
+                    <span style="color: #007aff; font-size: 20px; font-weight: 800; letter-spacing: 0.5px;">02) 714-9627</span>
+                </h4>
+                
+                <div class="as-details" style="font-size: 12px; color: #8e8e93; line-height: 2.0; text-align: left;">
+                    <p style="margin-bottom: 8px; display: flex; align-items: flex-start;">
+                        <strong style="color: #fff; min-width: 65px; display: inline-block; flex-shrink: 0; font-weight: 600;">운영시간</strong>
+                        <span>평일 오전 10시 ~ 오후 5시 [ 공휴일, 토, 일요일 휴무 ]</span>
+                    </p>
+                    <p style="margin-bottom: 12px; display: flex; align-items: flex-start;">
+                        <strong style="color: #fff; min-width: 65px; display: inline-block; flex-shrink: 0; font-weight: 600;">접수처</strong>
+                        <span>서울 용산구 청파로 20길 9, 대주피오레 아이피아 1층 2~4호 (투민 시스템)</span>
+                    </p>
+                    <p style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #3a3a3c; color: #ff9f0a; font-weight: 600; font-size: 11px; line-height: 1.5;">
+                        ※ A/S 접수시 사전 연락 후 방문 또는 택배 접수 바랍니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 자료실 구동 스크립트 -->
+    <script>
+        // 다운로드 자료 데이터베이스 (매뉴얼이 필요한 주요 제품만 포함)
+        const downloadDb = [
+            {
+                model: 'TA300',
+                name: 'TA300 RGB',
+                category: 'case',
+                categoryKo: 'PC 케이스',
+                title: 'TA300 RGB 3면 파노라마 어항 케이스 조립 설명서 (사용자 매뉴얼)',
+                fileName: 'TA300_RGB_Manual_KO.pdf',
+                fileSize: '4.5 MB',
+                fileType: 'PDF',
+                date: '2026-01-20',
+                link: 'TA300_RGB_Manual_KO.pdf'
+            },
+            {
+                model: 'TA100',
+                name: 'TA100',
+                category: 'case',
+                categoryKo: 'PC 케이스',
+                title: 'TA100 시그니처 파노라마 글래스 어항 케이스 조립 안내서',
+                fileName: 'TA100_Manual_KO.pdf',
+                fileSize: '3.8 MB',
+                fileType: 'PDF',
+                date: '2025-07-29',
+                link: 'TA100_Manual_KO.pdf'
+            },
+            {
+                model: 'TA200',
+                name: 'TA200 AIR1',
+                category: 'case',
+                categoryKo: 'PC 케이스',
+                title: 'TA200 AIR1 고쿨링 풀 타공 메쉬 케이스 사용자 조립 설명서',
+                fileName: 'TA200_AIR1_Manual_KO.pdf',
+                fileSize: '3.2 MB',
+                fileType: 'PDF',
+                date: '2026-01-12',
+                link: 'TA200_AIR1_Manual_KO.pdf'
+            },
+            {
+                model: 'TM300',
+                name: 'TM300 RGB',
+                category: 'case',
+                categoryKo: 'PC 케이스',
+                title: 'TM300 RGB 컴팩트 파노라마 뷰 미니타워 케이스 조립 매뉴얼',
+                fileName: 'TM300_RGB_Manual_KO.pdf',
+                fileSize: '4.1 MB',
+                fileType: 'PDF',
+                date: '2026-01-20',
+                link: 'TM300_RGB_Manual_KO.pdf'
+            },
+            {
+                model: 'TM200',
+                name: 'TM200 AIR1',
+                category: 'case',
+                categoryKo: 'PC 케이스',
+                title: 'TM200 AIR1 버티컬 스트라이프 미니 메쉬 케이스 조립 가이드',
+                fileName: 'TM200_AIR1_Manual_KO.pdf',
+                fileSize: '2.9 MB',
+                fileType: 'PDF',
+                date: '2026-01-12',
+                link: 'TM200_AIR1_Manual_KO.pdf'
+            },
+            {
+                model: 'TM100',
+                name: 'TM100 FRGB',
+                category: 'case',
+                categoryKo: 'PC 케이스',
+                title: 'TM100 FRGB 큐브형 미니 어항 케이스 제품 설명서',
+                fileName: 'TM100_FRGB_Manual_KO.pdf',
+                fileSize: '3.5 MB',
+                fileType: 'PDF',
+                date: '2025-11-05',
+                link: 'TM100_FRGB_Manual_KO.pdf'
+            },
+            {
+                model: 'NOVA6',
+                name: 'THERMANOVA NOVA 6',
+                category: 'cooler',
+                categoryKo: 'CPU 쿨러',
+                title: 'THERMANOVA NOVA 6 ARGB 타워형 CPU 쿨러 메인보드 동기화 및 조립 설명서',
+                fileName: 'NOVA6_ARGB_Manual_KO.pdf',
+                fileSize: '2.4 MB',
+                fileType: 'PDF',
+                date: '2025-01-16',
+                link: 'NOVA6_ARGB_Manual_KO.pdf'
+            },
+            {
+                model: 'NOVA1',
+                name: 'THERMANOVA NOVA 1',
+                category: 'cooler',
+                categoryKo: 'CPU 쿨러',
+                title: 'THERMANOVA NOVA 1 RGB 플라워형 CPU 쿨러 메인보드 소켓 장착 매뉴얼',
+                fileName: 'NOVA1_RGB_Manual_KO.pdf',
+                fileSize: '1.8 MB',
+                fileType: 'PDF',
+                date: '2025-01-16',
+                link: 'NOVA1_RGB_Manual_KO.pdf'
+            }
+        ];
+
+        // 매뉴얼이 불필요한 표준형 모델 매핑 및 안내 문구 정보
+        const standardModels = {
+            'TA10': {
+                name: 'TA10',
+                type: '오피스 가성비 미들타워',
+                desc: '본 제품은 별도의 전용 매뉴얼이나 제어 소프트웨어가 제공되지 않는 표준 규격 오피스 케이스입니다. 일반적인 ATX/Micro-ATX 메인보드 및 파워서플라이 제조사의 가이드를 참고하여 동일한 규격으로 안전하게 조립하실 수 있습니다.'
+            },
+            'TM40': {
+                name: 'TM40',
+                type: '실속형 컴팩트 가성비 케이스',
+                desc: '본 제품은 대량 조립 및 보급용 컴퓨터에 최적화된 표준 미니타워 케이스로, 별도의 조립 설명서가 필요 없는 단순하고 직관적인 내부 섀시 구조를 가지고 있습니다. 메인보드 규격(M-ATX) 및 케이블 연결 표준 규격을 따릅니다.'
+            },
+            'TM50': {
+                name: 'TM50',
+                type: '가성비 타공 메쉬 케이스',
+                desc: '본 제품은 전면 타공 구조의 가성비 보급형 케이스입니다. 기본 부품 결합 및 배선 연결은 컴퓨터 하드웨어 표준 규격을 따르며, 별도의 소프트웨어나 특별한 조립 지침이 필요하지 않습니다.'
+            },
+            'TL10': {
+                name: 'TL10',
+                type: '초슬림 LP 타워 케이스',
+                desc: '본 제품은 LP(Low Profile) 규격의 슬림 타워 케이스입니다. 내부 부품(메인보드, 파워 등) 결합은 표준 규격을 사용하나 슬림 케이스 특성상 그래픽카드 장착 시 LP 전용 브라켓이 필요할 수 있습니다. 조립 관련 특이사항 문의는 고객센터로 연락 주시기 바랍니다.'
+            }
+        };
+
+        let currentCategory = 'all';
+        let currentSearchQuery = '';
+
+        // 초기화
+        window.onload = function() {
+            renderDownloads();
+        };
+
+        // 카테고리 필터링 적용
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            // 버튼 액티브 클래스 제어
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (category === 'all') document.getElementById('btn-all').classList.add('active');
+            else if (category === 'case') document.getElementById('btn-case').classList.add('active');
+            else if (category === 'cooler') document.getElementById('btn-cooler').classList.add('active');
+            
+            renderDownloads();
+        }
+
+        // 검색어 입력 이벤트 처리
+        function handleSearch() {
+            currentSearchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+            renderDownloads();
+        }
+
+        // 자료실 리스트 렌더링 함수
+        function renderDownloads() {
+            const listContainer = document.getElementById('downloadList');
+            listContainer.innerHTML = ''; // 기존 내용 지우기
+
+            // 1. 자료실 DB 필터링
+            let filtered = downloadDb.filter(item => {
+                // 카테고리 매칭
+                const matchCategory = (currentCategory === 'all' || item.category === currentCategory);
+                
+                // 검색어 매칭 (모델명 또는 문서명에 검색어 포함 여부)
+                const matchSearch = (currentSearchQuery === '' || 
+                                     item.name.toLowerCase().includes(currentSearchQuery) || 
+                                     item.model.toLowerCase().includes(currentSearchQuery) ||
+                                     item.title.toLowerCase().includes(currentSearchQuery));
+                
+                return matchCategory && matchSearch;
+            });
+
+            // 2. 검색어가 표준 모델에 매칭되는지 확인 (검색결과가 없거나 해당 검색어가 완전히 일치하는 경우 등)
+            let matchedStandard = null;
+            if (currentSearchQuery !== '') {
+                for (const key in standardModels) {
+                    if (key.toLowerCase() === currentSearchQuery || 
+                        standardModels[key].name.toLowerCase().includes(currentSearchQuery)) {
+                        matchedStandard = standardModels[key];
+                        break;
+                    }
+                }
+            }
+
+            // 3. 렌더링 분기 처리
+            
+            // 3-1. 검색결과가 없고 표준형 모델 매칭도 없는 경우
+            if (filtered.length === 0 && !matchedStandard) {
+                listContainer.innerHTML = `
+                    <div class="no-results-card">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                        </svg>
+                        <p>검색 조건에 맞는 제품 매뉴얼 자료가 없습니다.</p>
+                        <p style="font-size: 13px; color: #8e8e93; font-weight: normal; margin-top: -5px;">제품명을 다시 한 번 확인해 주시거나 고객지원센터로 문의해 주세요.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 3-2. 표준형 모델이 매칭된 경우 안내 카드 최상단 노출
+            if (matchedStandard) {
+                const infoCard = document.createElement('div');
+                infoCard.className = 'info-notification-card';
+                infoCard.innerHTML = `
+                    <div class="info-icon-box">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h3>[${matchedStandard.name}] 표준형 제품 조립 안내</h3>
+                        <p>${matchedStandard.desc}</p>
+                        <p style="margin-top: 8px; font-weight: bold; color: #0056b3;">※ 해당 표준형 케이스 제품은 별도의 기술 설명서가 동봉/제공되지 않습니다.</p>
+                    </div>
+                `;
+                listContainer.appendChild(infoCard);
+            }
+
+            // 3-3. 필터링된 다운로드 카드 렌더링
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'download-card';
+                card.innerHTML = `
+                    <div class="card-left">
+                        <div class="file-icon-box">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V7h2v2zm6 8h-4v-2h4v2zm0-4h-4v-2h4v2zm0-4h-4V7h4v2z"/>
+                            </svg>
+                        </div>
+                        <div class="doc-details">
+                            <div class="badge-row">
+                                <span class="category-badge">${item.categoryKo}</span>
+                                <span class="model-badge">${item.model}</span>
+                            </div>
+                            <h3 class="doc-title">${item.title}</h3>
+                            <div class="doc-info">
+                                <span>포맷: <strong>${item.fileType}</strong></span>
+                                <span>용량: <strong>${item.fileSize}</strong></span>
+                                <span>등록일: <strong>${item.date}</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="download-btn" onclick="location.href='${item.link}'">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+                        </svg>
+                        다운로드
+                    </button>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
