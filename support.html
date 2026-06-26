@@ -531,86 +531,14 @@
 
     <!-- 자료실 구동 스크립트 -->
     <script>
-        // 다운로드 자료 데이터베이스 (매뉴얼이 필요한 주요 제품만 포함)
+        // 다운로드 자료 데이터베이스 (장착 매뉴얼이 있는 핵심 제품만 포함)
         const downloadDb = [
-            {
-                model: 'TA300',
-                name: 'TA300 RGB',
-                category: 'case',
-                categoryKo: 'PC 케이스',
-                title: 'TA300 RGB 3면 파노라마 어항 케이스 조립 설명서 (사용자 매뉴얼)',
-                fileName: 'TA300_RGB_Manual_KO.pdf',
-                fileSize: '4.5 MB',
-                fileType: 'PDF',
-                date: '2026-01-20',
-                link: 'TA300_RGB_Manual_KO.pdf'
-            },
-            {
-                model: 'TA100',
-                name: 'TA100',
-                category: 'case',
-                categoryKo: 'PC 케이스',
-                title: 'TA100 시그니처 파노라마 글래스 어항 케이스 조립 안내서',
-                fileName: 'TA100_Manual_KO.pdf',
-                fileSize: '3.8 MB',
-                fileType: 'PDF',
-                date: '2025-07-29',
-                link: 'TA100_Manual_KO.pdf'
-            },
-            {
-                model: 'TA200',
-                name: 'TA200 AIR1',
-                category: 'case',
-                categoryKo: 'PC 케이스',
-                title: 'TA200 AIR1 고쿨링 풀 타공 메쉬 케이스 사용자 조립 설명서',
-                fileName: 'TA200_AIR1_Manual_KO.pdf',
-                fileSize: '3.2 MB',
-                fileType: 'PDF',
-                date: '2026-01-12',
-                link: 'TA200_AIR1_Manual_KO.pdf'
-            },
-            {
-                model: 'TM300',
-                name: 'TM300 RGB',
-                category: 'case',
-                categoryKo: 'PC 케이스',
-                title: 'TM300 RGB 컴팩트 파노라마 뷰 미니타워 케이스 조립 매뉴얼',
-                fileName: 'TM300_RGB_Manual_KO.pdf',
-                fileSize: '4.1 MB',
-                fileType: 'PDF',
-                date: '2026-01-20',
-                link: 'TM300_RGB_Manual_KO.pdf'
-            },
-            {
-                model: 'TM200',
-                name: 'TM200 AIR1',
-                category: 'case',
-                categoryKo: 'PC 케이스',
-                title: 'TM200 AIR1 버티컬 스트라이프 미니 메쉬 케이스 조립 가이드',
-                fileName: 'TM200_AIR1_Manual_KO.pdf',
-                fileSize: '2.9 MB',
-                fileType: 'PDF',
-                date: '2026-01-12',
-                link: 'TM200_AIR1_Manual_KO.pdf'
-            },
-            {
-                model: 'TM100',
-                name: 'TM100 FRGB',
-                category: 'case',
-                categoryKo: 'PC 케이스',
-                title: 'TM100 FRGB 큐브형 미니 어항 케이스 제품 설명서',
-                fileName: 'TM100_FRGB_Manual_KO.pdf',
-                fileSize: '3.5 MB',
-                fileType: 'PDF',
-                date: '2025-11-05',
-                link: 'TM100_FRGB_Manual_KO.pdf'
-            },
             {
                 model: 'NOVA6',
                 name: 'THERMANOVA NOVA 6',
                 category: 'cooler',
                 categoryKo: 'CPU 쿨러',
-                title: 'THERMANOVA NOVA 6 ARGB 타워형 CPU 쿨러 메인보드 동기화 및 조립 설명서',
+                title: 'THERMANOVA NOVA 6 장착 매뉴얼',
                 fileName: 'NOVA6_ARGB_Manual_KO.pdf',
                 fileSize: '2.4 MB',
                 fileType: 'PDF',
@@ -622,7 +550,7 @@
                 name: 'THERMANOVA NOVA 1',
                 category: 'cooler',
                 categoryKo: 'CPU 쿨러',
-                title: 'THERMANOVA NOVA 1 RGB 플라워형 CPU 쿨러 메인보드 소켓 장착 매뉴얼',
+                title: 'THERMANOVA NOVA 1 장착 매뉴얼',
                 fileName: 'NOVA1_RGB_Manual_KO.pdf',
                 fileSize: '1.8 MB',
                 fileType: 'PDF',
@@ -631,27 +559,57 @@
             }
         ];
 
-        // 매뉴얼이 불필요한 표준형 모델 매핑 및 안내 문구 정보
+        // 매뉴얼이 불필요한 표준형/보급형 모델 매핑 및 안내 문구 정보
         const standardModels = {
+            'TA300': {
+                name: 'TA300 RGB',
+                type: '3면 파노라마 어항 케이스',
+                desc: '본 제품은 조립 편의성이 극대화된 표준 ATX 규격 케이스로 별도의 조립 매뉴얼이 제공되지 않습니다. 메인보드 및 파워서플라이 제조사의 표준 설치 안내를 참고하여 동일하게 조립하실 수 있습니다.'
+            },
+            'TA100': {
+                name: 'TA100',
+                type: '시그니처 파노라마 글래스 어항 케이스',
+                desc: '본 제품은 표준 규격의 어항형 미들타워 케이스로 별도의 조립 설명서가 제공되지 않습니다. 일반적인 조립 가이드를 준수하여 쉽게 조립이 가능합니다.'
+            },
+            'TA200': {
+                name: 'TA200 AIR1',
+                type: '고쿨링 풀 타공 메쉬 케이스',
+                desc: '본 제품은 표준 규격 메쉬 케이스로 별도의 조립 매뉴얼이 제공되지 않습니다. 전면 고밀도 타공 구조이며 조립 방법은 표준 ATX 섀시와 동일합니다.'
+            },
+            'TM300': {
+                name: 'TM300 RGB',
+                type: '컴팩트 파노라마 뷰 미니타워 케이스',
+                desc: '본 제품은 표준 M-ATX 규격의 미니 어항 케이스로 별도의 조립 매뉴얼이 제공되지 않습니다. 내부 부품 장착은 일반적인 규격 조립법과 동일합니다.'
+            },
+            'TM200': {
+                name: 'TM200 AIR1',
+                type: '버티컬 스트라이프 미니 메쉬 케이스',
+                desc: '본 제품은 표준 M-ATX 규격의 미니 메쉬 케이스로 별도의 조립 설명서가 제공되지 않습니다. 표준 하드웨어 가이드를 준수하여 조립하시기 바랍니다.'
+            },
+            'TM100': {
+                name: 'TM100 FRGB',
+                type: '큐브형 미니 어항 케이스',
+                desc: '본 제품은 표준 M-ATX 규격의 미니 어항형 케이스로 별도의 조립 설명서가 제공되지 않습니다. 표준 조립 가이드에 따라 장착이 가능합니다.'
+            },
             'TA10': {
                 name: 'TA10',
                 type: '오피스 가성비 미들타워',
-                desc: '본 제품은 별도의 전용 매뉴얼이나 제어 소프트웨어가 제공되지 않는 표준 규격 오피스 케이스입니다. 일반적인 ATX/Micro-ATX 메인보드 및 파워서플라이 제조사의 가이드를 참고하여 동일한 규격으로 안전하게 조립하실 수 있습니다.'
+                desc: '본 제품은 별도의 전용 매뉴얼이 제공되지 않는 표준 규격 오피스 케이스입니다. 일반적인 ATX/Micro-ATX 메인보드 및 파워서플라이 제조사의 가이드를 참고하여 동일한 규격으로 조립하실 수 있습니다.'
             },
             'TM40': {
                 name: 'TM40',
                 type: '실속형 컴팩트 가성비 케이스',
-                desc: '본 제품은 대량 조립 및 보급용 컴퓨터에 최적화된 표준 미니타워 케이스로, 별도의 조립 설명서가 필요 없는 단순하고 직관적인 내부 섀시 구조를 가지고 있습니다. 메인보드 규격(M-ATX) 및 케이블 연결 표준 규격을 따릅니다.'
+                desc: '본 제품은 대량 조립 및 보급용 컴퓨터에 최적화된 표준 미니타워 케이스로, 별도의 조립 설명서가 필요 없는 단순하고 직관적인 내부 섀시 구조를 가지고 있습니다.'
             },
             'TM50': {
                 name: 'TM50',
                 type: '가성비 타공 메쉬 케이스',
-                desc: '본 제품은 전면 타공 구조의 가성비 보급형 케이스입니다. 기본 부품 결합 및 배선 연결은 컴퓨터 하드웨어 표준 규격을 따르며, 별도의 소프트웨어나 특별한 조립 지침이 필요하지 않습니다.'
+                desc: '본 제품은 전면 타공 구조의 가성비 보급형 케이스입니다. 기본 부품 결합 및 배선 연결은 컴퓨터 하드웨어 표준 규격을 따르며 별도의 조립 지침이 필요하지 않습니다.'
             },
             'TL10': {
                 name: 'TL10',
                 type: '초슬림 LP 타워 케이스',
-                desc: '본 제품은 LP(Low Profile) 규격의 슬림 타워 케이스입니다. 내부 부품(메인보드, 파워 등) 결합은 표준 규격을 사용하나 슬림 케이스 특성상 그래픽카드 장착 시 LP 전용 브라켓이 필요할 수 있습니다. 조립 관련 특이사항 문의는 고객센터로 연락 주시기 바랍니다.'
+                desc: '본 제품은 LP(Low Profile) 규격의 슬림 타워 케이스입니다. LP 전용 그래픽카드 브라켓 사용을 권장하며, 조립 방법은 표준 슬림 케이스 조립법을 따릅니다.'
             }
         };
 
@@ -717,15 +675,31 @@
             
             // 3-1. 검색결과가 없고 표준형 모델 매칭도 없는 경우
             if (filtered.length === 0 && !matchedStandard) {
-                listContainer.innerHTML = `
-                    <div class="no-results-card">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                        </svg>
-                        <p>검색 조건에 맞는 제품 매뉴얼 자료가 없습니다.</p>
-                        <p style="font-size: 13px; color: #8e8e93; font-weight: normal; margin-top: -5px;">제품명을 다시 한 번 확인해 주시거나 고객지원센터로 문의해 주세요.</p>
-                    </div>
-                `;
+                if (currentCategory === 'case' && currentSearchQuery === '') {
+                    listContainer.innerHTML = `
+                        <div class="info-notification-card">
+                            <div class="info-icon-box">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <h3>PC 케이스 제품군 조립 안내</h3>
+                                <p>투민시스템의 PC 케이스 전 제품군(TA 및 TM 시리즈)은 별도의 조립 매뉴얼이나 전용 소프트웨어가 필요하지 않은 표준 규격 제품입니다. 메인보드 및 파워서플라이 제조사의 표준 조립 안내에 따라 동일한 규격으로 조립이 가능합니다. 상세 제품 스펙은 각 제품 상세페이지에서 확인하실 수 있으며, 조립 관련 기술 지원이 필요한 경우 A/S 센터(02-714-9627)로 문의해 주시기 바랍니다.</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    listContainer.innerHTML = `
+                        <div class="no-results-card">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                            </svg>
+                            <p>검색 조건에 맞는 제품 매뉴얼 자료가 없습니다.</p>
+                            <p style="font-size: 13px; color: #8e8e93; font-weight: normal; margin-top: -5px;">제품명을 다시 한 번 확인해 주시거나 고객지원센터로 문의해 주세요.</p>
+                        </div>
+                    `;
+                }
                 return;
             }
 
