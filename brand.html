@@ -294,7 +294,7 @@
            ========================================================================== */
         .brand-section {
             background-color: #0b0b0c;
-            padding: 90px 20px;
+            padding: 160px 20px 90px 20px;
             border-bottom: 1px solid #1c1c1e;
         }
         .brand-container {
@@ -411,6 +411,28 @@
             letter-spacing: 0.5px;
             font-weight: bold;
         }
+        .partner-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: #8e8e93;
+            letter-spacing: -0.2px;
+            transition: color 0.3s ease;
+        }
+        .partner-logo-box:hover {
+            border-color: #007aff;
+            background: rgba(0, 122, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 122, 255, 0.15);
+            transform: scale(1.03);
+        }
+        .partner-logo-box:hover .partner-name {
+            color: #007aff;
+        }
+        .partner-notice {
+            font-size: 11px;
+            color: #48484a;
+            margin-top: 25px;
+        }
+
         .partner-logo-img {
             max-width: 90%;
             max-height: 42px;
@@ -419,19 +441,8 @@
             transition: all 0.3s ease;
             margin-top: 5px;
         }
-        .partner-logo-box:hover {
-            border-color: #007aff;
-            background: rgba(0, 122, 255, 0.05);
-            box-shadow: 0 0 15px rgba(0, 122, 255, 0.15);
-            transform: scale(1.03);
-        }
         .partner-logo-box:hover .partner-logo-img {
             filter: grayscale(0) opacity(1);
-        }
-        .partner-notice {
-            font-size: 11px;
-            color: #48484a;
-            margin-top: 25px;
         }
 
         @media (max-width: 768px) {
@@ -450,64 +461,15 @@
             <a href="index.html" class="logo">TWOMIN SYSTEM</a>
             <ul class="menu">
                 <li><a href="index.html">HOME</a></li>
-                <li><a href="#brand-section">BRAND</a></li>
-                <li><a href="#tabs-section">PRODUCTS</a></li>
+                <li><a href="#brand-section" class="active">BRAND</a></li>
+                <li><a href="index.html#tabs-section">PRODUCTS</a></li>
                 <li><a href="support.html">SUPPORT</a></li>
             </ul>
             <a href="#b2b-form" class="cta-btn">B2B 단가 문의</a>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-slider">
-            
-            <div class="hero-slide active">
-                <div class="hero-badge">2026 NEW FLAGSHIP</div>
-                <h1>경계를 허물다.<br>무결점 프레임리스 파노라마 뷰, TA300 RGB</h1>
-                <p>기둥 없는 완전 개방감, 상단 3열 수랭 라디에이터 완벽 호환으로 하이엔드 게이밍 장악</p>
-                <div class="hero-image-box">
-                    <img src="TA300_RGB_Black_1000x1000.jpg" alt="TA300 RGB 플래그십 어항 케이스">
-                </div>
-            </div>
-
-            <div class="hero-slide">
-                <div class="hero-badge">SIGNATURE BEST</div>
-                <h1>완벽한 파노라마 뷰의 시작<br>투민시스템 주력 모델, TA100</h1>
-                <p>전면·측면 강화유리 설계로 세련된 튜닝 무드 연출, 대중적인 미들타워의 정석</p>
-                <div class="hero-image-box">
-                    <img src="TA100썸네일.jpg" alt="TA100">
-                </div>
-            </div>
-
-            <div class="hero-slide">
-                <div class="hero-badge">BEST SELLER</div>
-                <h1>공간 활용과 가성비의 정점<br>실속형 컴팩트 섀시, TM40</h1>
-                <p>관공서 및 대량 조립 PC 최적화 설계, 슬림한 구조에 완벽한 확장성을 더하다</p>
-                <div class="hero-image-box">
-                    <img src="TM40_black_1000x1000.jpg" alt="TM40">
-                </div>
-            </div>
-
-            <div class="hero-slide">
-                <div class="hero-badge">OFFICIAL STANDARD</div>
-                <h1>탄탄한 기본기, 오피스의 표준<br>비즈니스 최적화 라인업, TA10</h1>
-                <p>기업 및 사무실 대량 납품 1위 신화! 가장 군더더기 없고 견고한 오피셜 케이스</p>
-                <div class="hero-image-box">
-                    <img src="TA10_1000x1000_1.jpg" alt="TA10">
-                </div>
-            </div>
-
-        </div>
-
-        <div class="slide-dots">
-            <div class="dot active" onclick="currentSlide(0)"></div>
-            <div class="dot" onclick="currentSlide(1)"></div>
-            <div class="dot" onclick="currentSlide(2)"></div>
-            <div class="dot" onclick="currentSlide(3)"></div>
-        </div>
-    </section>
-
-    <!-- 브랜드 강점 및 파트너사 영역 -->
+    <!-- 브랜드 강점 및 파트너사 시안 영역 -->
     <section id="brand-section" class="brand-section">
         <div class="brand-container">
             <div class="brand-intro">
@@ -567,175 +529,7 @@
         </div>
     </section>
 
-    <section class="tabs-section">
-        <div class="tab-menu">
-            <button class="tab-btn active" onclick="openTab('standard-atx')">ATX</button>
-            <button class="tab-btn" onclick="openTab('matx-mini')">M-ATX</button>
-            <button class="tab-btn" onclick="openTab('cpu-cooler')">CPU COOLER</button>
-        </div>
-    </section>
 
-    <div id="standard-atx" class="tab-content products-grid active">
-        
-        <div class="product-card" onclick="location.href='product-detail.html?model=TA300'" style="cursor: pointer;">
-            <div class="card-badge premium">FLAGSHIP</div>
-            <div class="prod-img-slot">
-                <img src="TA300_RGB_Black_1000x1000.jpg" alt="TA300 RGB">
-            </div>
-            <h3>TA300 RGB</h3>
-            <p>기둥 없는 무결점 파노라마 뷰, 상단 3열 수랭 완벽 장착 가능, 리버스 팬 3개 탑재</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TA100'" style="cursor: pointer;">
-            <div class="card-badge">SIGNATURE</div>
-            <div class="prod-img-slot">
-                <img src="TA100썸네일.jpg" alt="TA100">
-            </div>
-            <h3>TA100</h3>
-            <p>투민시스템의 대표 간판 라인업! 완벽한 파노라마 글래스 적용 대중적인 어항형 미들타워</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TA200'" style="cursor: pointer;">
-            <div class="card-badge hit">COOLING 특화</div>
-            <div class="prod-img-slot">
-                <img src="TA200 AIR1 Black_1000x1000.jpg" alt="TA200 AIR1">
-            </div>
-            <h3>TA200 AIR1</h3>
-            <p>전면 고밀도 타공 풀 메쉬 구조로 흡기 효율 극대화, 기본 고휘도 RGB 팬 4개 장착 퍼포먼스 케이스</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TA10'" style="cursor: pointer;">
-            <div class="card-badge">OFFICE</div>
-            <div class="prod-img-slot">
-                <img src="TA10_1000x1000_1.jpg" alt="TA10">
-            </div>
-            <h3>TA10</h3>
-            <p>사무실·관공서 대량 납품 최적화. 노멀하면서 탄탄한 기본기에 집중한 오피셜 라인업</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TA20'" style="cursor: pointer;">
-            <div class="card-badge">OFFICE</div>
-            <div class="prod-img-slot">
-                <img src="TA20_1000x1000_4.jpg" alt="TA20">
-            </div>
-            <h3>TA20</h3>
-            <p>5.25인치 ODD 장착 지원, 세련된 헤어라인 전면 패널로 실속 있고 탄탄한 오피셜 케이스</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-    </div>
-
-    <div id="matx-mini" class="tab-content products-grid">
-        
-        <div class="product-card" onclick="location.href='product-detail.html?model=TM300'" style="cursor: pointer;">
-            <div class="card-badge premium">GAMING 히트</div>
-            <div class="prod-img-slot">
-                <img src="TM300_RGB_Black_1000x1000.jpg" alt="TM300 RGB">
-            </div>
-            <h3>TM300 RGB</h3>
-            <p>M-ATX 규격 컴팩트 하이엔드! 기둥리스 프레임리스 감성과 게이밍 가성비를 동시에 실현</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TM200'" style="cursor: pointer;">
-            <div class="card-badge hit">MINI MESH</div>
-            <div class="prod-img-slot">
-                <img src="TM200 AIR1 Black_1000x1000.jpg" alt="TM200 AIR1">
-            </div>
-            <h3>TM200 AIR1</h3>
-            <p>전면 버티컬 스트라이프 메쉬 패널 적용, 컴팩트 미니 규격에서 구현하는 최강의 공기 순환 성능</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TM100'" style="cursor: pointer;">
-            <div class="card-badge">COMPACT 어항</div>
-            <div class="prod-img-slot">
-                <img src="TM100_black_1000x1000_1.jpg" alt="TM100 FRGB">
-            </div>
-            <h3>TM100 FRGB</h3>
-            <p>공간 활용도를 극대화한 미니 어항형 큐브 섀시 구조, 순백의 All-White 및 Black 감성 선택 가능</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TM40'" style="cursor: pointer;">
-            <div class="card-badge premium">판매량 1위</div>
-            <div class="prod-img-slot">
-                <img src="TM40_black_1000x1000.jpg" alt="TM40">
-            </div>
-            <h3>TM40</h3>
-            <p>투민시스템의 실질적인 매출 견인차! 박리다매 저가형 시장 및 공공기관 조립 최적화 효자 모델</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TM50'" style="cursor: pointer;">
-            <div class="card-badge">가성비 추천 2위</div>
-            <div class="prod-img-slot">
-                <img src="TM50_black_1000x1000.jpg" alt="TM50">
-            </div>
-            <h3>TM50</h3>
-            <p>전면 입체 타공 메쉬 패널 적용으로 자연 흡기 극대화, 보급형 메쉬 시장을 겨냥한 가성비 쌍두마차</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TM10'" style="cursor: pointer;">
-            <div class="card-badge">OFFICE</div>
-            <div class="prod-img-slot">
-                <img src="TM10_2_000x1000.jpg" alt="TM10">
-            </div>
-            <h3>TM10</h3>
-            <p>세로 슬릿 전면 패널과 컴팩트한 설계로 공간 효율을 극대화한 비즈니스 사무용 미니타워</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TM20'" style="cursor: pointer;">
-            <div class="card-badge">OFFICE</div>
-            <div class="prod-img-slot">
-                <img src="TM20_1000x1000_1.png" alt="TM20">
-            </div>
-            <h3>TM20</h3>
-            <p>전면 고급 헤어라인 패널과 하단 흡기 메쉬 설계를 더한 실속 있고 깔끔한 사무용 미니타워</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=TL10'" style="cursor: pointer;">
-            <div class="card-badge">SLIM LP</div>
-            <div class="prod-img-slot">
-                <img src="TL10_1000x1000.jpg" alt="TL10">
-            </div>
-            <h3>TL10</h3>
-            <p>공간 효율을 극대화한 LP 규격 초슬림 타워형 케이스, 대량 납품 및 미니 홈 오피스 최적화</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-    </div>
-
-    <div id="cpu-cooler" class="tab-content products-grid">
-        
-        <div class="product-card" onclick="location.href='product-detail.html?model=NOVA6'" style="cursor: pointer;">
-            <div class="card-badge premium">HI-END</div>
-            <div class="prod-img-slot">
-                <img src="NOVA6 ARGB_1_20250116.jpg" alt="NOVA 6 ARGB">
-            </div>
-            <h3>THERMANOVA NOVA 6</h3>
-            <p>6개의 고정밀 구리 히트파이프 구조, 5V ARGB 메인보드 완벽 동기화 및 메모리 간섭 제로 설계</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-        <div class="product-card" onclick="location.href='product-detail.html?model=NOVA1'" style="cursor: pointer;">
-            <div class="card-badge">BEST 가성비</div>
-            <div class="prod-img-slot">
-                <img src="NOVA1 RGB_1_20250116.jpg" alt="NOVA 1 RGB">
-            </div>
-            <h3>THERMANOVA NOVA 1</h3>
-            <p>탑다운(플라워) 구조의 고풍량 RGB 내장형 일체형 쿨러, 미니 케이스(TM시리즈)와 최고의 가성비 궁합</p>
-            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
-        </div>
-
-    </div>
 
     <section class="b2b-lead-section" id="b2b-form">
         <div class="lead-container">
@@ -835,50 +629,7 @@
     </footer>
 
     <script>
-        // 1. 하단 메인 카테고리 탭 전환 스크립트
-        function openTab(tabId) {
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(button => button.classList.remove('active'));
-
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        // 2. 상단 히어로 배너 자동 순차 롤링 스크립트 (3초 지정)
-        let currentSlideIndex = 0;
-        const slides = document.querySelectorAll('.hero-slide');
-        const dots = document.querySelectorAll('.dot');
-        let slideTimer;
-
-        function showSlides(index) {
-            if (index >= slides.length) currentSlideIndex = 0;
-            if (index < 0) currentSlideIndex = slides.length - 1;
-
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-
-            slides[currentSlideIndex].classList.add('active');
-            dots[currentSlideIndex].classList.add('active');
-        }
-
-        function currentSlide(index) {
-            clearInterval(slideTimer);
-            currentSlideIndex = index;
-            showSlides(currentSlideIndex);
-            startSlideShow();
-        }
-
-        function startSlideShow() {
-            slideTimer = setInterval(() => {
-                currentSlideIndex++;
-                showSlides(currentSlideIndex);
-            }, 3000);
-        }
-
-        // 3. 비동기 개별 이메일 전송 핸들러 (참조 노출 방지용)
+        // 비동기 개별 이메일 전송 핸들러 (참조 노출 방지용)
         async function handleFormSubmit(event) {
             event.preventDefault();
             
@@ -936,10 +687,6 @@
                 submitBtn.disabled = false;
             }
         }
-
-        window.onload = function() {
-            startSlideShow();
-        };
     </script>
 
 </body>
