@@ -433,6 +433,18 @@
             margin-top: 25px;
         }
 
+        .partner-logo-img {
+            max-width: 90%;
+            max-height: 42px;
+            object-fit: contain;
+            filter: grayscale(1) opacity(0.5);
+            transition: all 0.3s ease;
+            margin-top: 5px;
+        }
+        .partner-logo-box:hover .partner-logo-img {
+            filter: grayscale(0) opacity(1);
+        }
+
         @media (max-width: 768px) {
             .brand-intro h2 { font-size: 26px; }
             .brand-intro p { font-size: 14px; }
@@ -536,29 +548,29 @@
             <div class="partners-area">
                 <h4>함께하는 주요 B2B 파트너사</h4>
                 <div class="partners-grid">
-                    <div class="partner-logo-box">
+                    <div class="partner-logo-box" onclick="window.open('https://shop.danawa.com/main/', '_blank')">
                         <span class="partner-tag">쇼핑몰 연동</span>
-                        <span class="partner-name">다나와 조립</span>
+                        <img src="https://img.danawa.com/new/shop/img/header/logo.gif" alt="다나와" class="partner-logo-img" referrerpolicy="no-referrer">
                     </div>
-                    <div class="partner-logo-box">
+                    <div class="partner-logo-box" onclick="window.open('https://www.compuzone.co.kr/main/main.htm', '_blank')">
                         <span class="partner-tag">대량 매입</span>
-                        <span class="partner-name">컴퓨존 파트너</span>
+                        <img src="https://img.compuzone.co.kr/indiv/images/logo_compuzone.png" alt="컴퓨존" class="partner-logo-img" referrerpolicy="no-referrer">
                     </div>
-                    <div class="partner-logo-box">
+                    <div class="partner-logo-box" onclick="window.open('https://www.pping.kr/', '_blank')">
                         <span class="partner-tag">공식 입점</span>
-                        <span class="partner-name">행복쇼핑</span>
+                        <img src="https://www.pping.kr/images/common/logo_v2.png" alt="행복쇼핑" class="partner-logo-img" referrerpolicy="no-referrer">
                     </div>
-                    <div class="partner-logo-box">
+                    <div class="partner-logo-box" onclick="window.open('https://www1.icoda.co.kr/main', '_blank')">
                         <span class="partner-tag">제휴 조립사</span>
-                        <span class="partner-name">아이코다 협력</span>
+                        <img src="https://img.icoda.co.kr/main/top_menu/m_top_logo.gif" alt="아이코다" class="partner-logo-img" referrerpolicy="no-referrer">
                     </div>
-                    <div class="partner-logo-box">
+                    <div class="partner-logo-box" onclick="window.open('https://www.joyzen.co.kr/', '_blank')">
                         <span class="partner-tag">SI 통합</span>
-                        <span class="partner-name">조이젠 SI</span>
+                        <img src="https://www.joyzen.co.kr/images/joyzen_logo.gif" alt="조이젠" class="partner-logo-img" referrerpolicy="no-referrer">
                     </div>
-                    <div class="partner-logo-box">
+                    <div class="partner-logo-box" onclick="window.open('https://www.assacom.com/', '_blank')">
                         <span class="partner-tag">조립 브랜드</span>
-                        <span class="partner-name">SYSTEM BUILDER</span>
+                        <img src="https://www.assacom.com/images/common/logo.png" alt="아싸컴" class="partner-logo-img" referrerpolicy="no-referrer">
                     </div>
                 </div>
                 <p class="partner-notice">※ 파트너사 로고는 그레이스케일 반투명 상태에서 마우스 오버 시 컬러 활성화 효과가 연출됩니다.</p>
