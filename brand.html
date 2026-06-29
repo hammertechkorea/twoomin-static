@@ -437,12 +437,11 @@
             max-width: 90%;
             max-height: 42px;
             object-fit: contain;
-            filter: grayscale(1) opacity(0.5);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
             margin-top: 5px;
         }
         .partner-logo-box:hover .partner-logo-img {
-            filter: grayscale(0) opacity(1);
+            transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
@@ -524,7 +523,7 @@
                         <img src="assacom_logo.jpg" alt="아싸컴" class="partner-logo-img">
                     </div>
                 </div>
-                <p class="partner-notice">※ 파트너사 로고는 그레이스케일 반투명 상태에서 마우스 오버 시 컬러 활성화 효과가 연출됩니다.</p>
+                <p class="partner-notice">※ 파트너사 로고는 오리지널 색상으로 표시되며, 마우스 오버 시 입체적인 반응 효과가 연출됩니다.</p>
             </div>
         </div>
     </section>
