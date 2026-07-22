@@ -359,6 +359,7 @@
             <button class="tab-btn active" onclick="openTab('standard-atx')">ATX</button>
             <button class="tab-btn" onclick="openTab('matx-mini')">M-ATX</button>
             <button class="tab-btn" onclick="openTab('cpu-cooler')">CPU COOLER</button>
+            <button class="tab-btn" onclick="openTab('cooling-fan')">COOLING FAN</button>
         </div>
     </section>
 
@@ -534,6 +535,20 @@
 
     </div>
 
+    <div id="cooling-fan" class="tab-content products-grid">
+        
+        <div class="product-card" onclick="location.href='product-detail.html?model=AF120'" style="cursor: pointer;">
+            <div class="card-badge premium">PREMIUM</div>
+            <div class="prod-img-slot">
+                <img src="AF120_black_draft.jpg" alt="AF120 PWM">
+            </div>
+            <h3>THERMANOVA AF120</h3>
+            <p>0.1mm 정밀 구조, 1.73mmH₂O 고정압의 8-Point 댐퍼 팬</p>
+            <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
+        </div>
+
+    </div>
+
     <section class="b2b-lead-section" id="b2b-form">
         <div class="lead-container">
             <h2>B2B 비즈니스 및 대량 구매 견적 문의</h2>
@@ -586,6 +601,10 @@
                         <!-- CPU 쿨러 -->
                         <optgroup label="CPU 쿨러 제품군">
                             <option value="THERMANOVA">THERMANOVA NOVA 1 / NOVA 6</option>
+                        </optgroup>
+                        <!-- 쿨링팬 -->
+                        <optgroup label="냉각팬 제품군">
+                            <option value="AF120">THERMANOVA AF120 PWM (3-PACK)</option>
                         </optgroup>
                     </select>
                 </div>
