@@ -32,7 +32,7 @@ gh auth login
 참고용 최초 연동 명령어:
 ```bash
 # 1. 현재 폴더로 이동 (Git Bash 또는 PowerShell)
-cd "e:/업무/투민 홈페이지/홈페이지 자료/twoomin"
+cd "I:/홈페이지/twoomin"
 
 # 2. Git 초기화
 "C:/Program Files/Git/cmd/git.exe" init

@@ -288,9 +288,73 @@
             #matx-mini.products-grid { grid-template-columns: 1fr; }
             .footer-container { flex-direction: column; text-align: center; }
         }
+
+        /* 팝업 공지사항 */
+        .popup-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-modal.show {
+            display: flex;
+        }
+        .popup-content {
+            background: #fff;
+            padding: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .popup-content img {
+            width: 100%;
+            display: block;
+        }
+        .popup-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            font-size: 14px;
+        }
+        .popup-footer label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #333;
+        }
     </style>
 </head>
 <body>
+
+    <!-- 여름 휴가 공지 팝업 -->
+    <div id="vacationPopup" class="popup-modal">
+        <div class="popup-content">
+            <img src="vacation_popup.png" alt="여름 휴가 공지">
+            <div class="popup-footer">
+                <label>
+                    <input type="checkbox" id="hidePopupToday"> 오늘 하루 보지 않기
+                </label>
+                <button class="popup-close" onclick="closePopup()">닫기 [X]</button>
+            </div>
+        </div>
+    </div>
 
     <header>
         <div class="nav-container">
@@ -768,8 +832,43 @@
             }
         }
 
+        // 팝업 관련 스크립트
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i=0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        function checkPopup() {
+            const endDate = new Date("2026-08-05T00:00:00+09:00");
+            const now = new Date();
+            if (now < endDate && getCookie("hideVacationPopup") !== "true") {
+                document.getElementById('vacationPopup').classList.add('show');
+            }
+        }
+
+        function closePopup() {
+            if (document.getElementById('hidePopupToday').checked) {
+                setCookie("hideVacationPopup", "true", 1);
+            }
+            document.getElementById('vacationPopup').classList.remove('show');
+        }
+
         window.onload = function() {
             startSlideShow();
+            checkPopup();
         };
     </script>
 
