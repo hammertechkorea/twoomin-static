@@ -346,7 +346,7 @@
     <!-- 여름 휴가 공지 팝업 -->
     <div id="vacationPopup" class="popup-modal">
         <div class="popup-content">
-            <img src="vacation_popup.png" alt="여름 휴가 공지">
+            <img src="chuseok_popup_2026.jpg" alt="추석 연휴 공지">
             <div class="popup-footer">
                 <label>
                     <input type="checkbox" id="hidePopupToday"> 오늘 하루 보지 않기
@@ -863,16 +863,16 @@
         }
 
         function checkPopup() {
-            const endDate = new Date("2026-08-05T00:00:00+09:00");
+            const endDate = new Date("2026-09-28T00:00:00+09:00");
             const now = new Date();
-            if (now < endDate && getCookie("hideVacationPopup") !== "true") {
+            if (now < endDate && getCookie("hideChuseokPopup") !== "true") {
                 document.getElementById('vacationPopup').classList.add('show');
             }
         }
 
         function closePopup() {
             if (document.getElementById('hidePopupToday').checked) {
-                setCookie("hideVacationPopup", "true", 1);
+                setCookie("hideChuseokPopup", "true", 1);
             }
             document.getElementById('vacationPopup').classList.remove('show');
         }
