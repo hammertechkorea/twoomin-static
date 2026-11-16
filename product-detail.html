@@ -580,6 +580,50 @@
     <script>
         // 1. 제품 데이터 데이터베이스 정의
         const productDb = {
+            'TA400': {
+                name: 'TA400 SHOWCASE',
+                category: '케이스',
+                badge: 'NEW PANORAMIC',
+                subtext: '후면 140mm 지원과 필러리스 파노라마 뷰로 완성한 새로운 쇼케이스',
+                colors: ['black', 'white'],
+                img: {
+                    'black': 'TA400_Black_1000x1000.jpg',
+                    'white': 'TA400_White_1000x1000.jpg'
+                },
+                detailImgs: {
+                    'black': 'TA400_Black_detail.jpg',
+                    'white': 'TA400_White_detail.jpg'
+                },
+                quickSpecs: [
+                    { label: '규격', val: 'ATX 미들타워 (파노라마 뷰)' },
+                    { label: '쿨링팬', val: '120mm FRGB 팬 4개 기본 장착' },
+                    { label: '후면팬 호환', val: '140mm / 120mm 팬 지원' },
+                    { label: '라디에이터', val: '상단 최대 360mm / 측면 240mm' },
+                    { label: 'VGA 장착', val: '최대 415mm (측면 수랭 시 295mm)' },
+                    { label: 'CPU 쿨러', val: '최대 높이 179mm 호환' },
+                    { label: '색상', val: '블랙 (Black) / 화이트 (White)' }
+                ],
+                marketing: [
+                    { icon: '💎', title: '2면 필러리스 파노라마 쇼케이스', desc: '전면과 측면 사이 프레임 기둥을 완전히 제거한 270° 파노라마 강화유리 설계로 막힘없이 투명하고 예술적인 시스템 내부를 연출합니다.' },
+                    { icon: '🌪️', title: '120mm FRGB 4팬 기본 탑재 & 후면 140mm 지원', desc: '측면 리버스 흡기 팬 3개와 후면 정방향 배기 팬 1개를 기본 제공하며, 후면은 140mm 대형 팬까지 완벽 지원하여 더욱 강력한 배기 쿨링을 실현합니다.' },
+                    { icon: '❄️', title: '상단 360mm / 측면 240mm 수랭 라디에이터 완벽 호환', desc: '상단 최대 360mm 대형 3열 라디에이터 및 측면 240mm 수랭 쿨러를 자유롭게 장착할 수 있는 여유로운 챔버 공간을 제공합니다.' },
+                    { icon: '🚀', title: '플래그십 그래픽카드 & 대형 공랭 쿨러 완벽 대응', desc: '최대 415mm 고성능 그래픽카드와 최대 179mm 대형 트윈타워 공랭 쿨러까지 간섭 없이 장착할 수 있는 탁월한 확장성을 자랑합니다.' }
+                ],
+                specs: {
+                    '제품 분류': 'PC 케이스 (ATX 미들타워)',
+                    '메인보드 지원': 'E-ATX (최대 285mm), Standard ATX, Micro-ATX, Mini-ITX',
+                    '제품 크기': '440(D) × 225(W) × 450(H) mm (Feet 포함) / 435(D) × 225(W) × 430(H) mm (섀시)',
+                    '제품 무게': 'N.W 5.0 kg / G.W 6.0 kg',
+                    '기본 번들 팬': '120mm FRGB 팬 4개 (측면 리버스 흡기 3개 + 후면 정방향 배기 1개)',
+                    '쿨링팬 호환성': '상단 120mm × 3 or 140mm × 2 / 측면 120mm × 3 / 후면 120mm or 140mm × 1 / 하단 120mm × 2 (최대 9개)',
+                    '수랭 라디에이터': '상단 120 / 240 / 280 / 360 mm, 측면 240 mm, 후면 120 mm',
+                    'CPU 쿨러 지원': '최대 높이 179 mm',
+                    '그래픽카드 지원': '최대 길이 415 mm (측면 240mm 라디에이터 장착 시 최대 295 mm)',
+                    '파워서플라이 지원': '표준 ATX (하단 장착 깊이 140 ~ 200 mm)',
+                    '저장장치 베이': '3.5" HDD 최대 1개 + 2.5" SSD 최대 2개',
+                    'I/O 인터페이스': 'USB 3.0 × 1, USB 2.0 × 2, HD Audio 통합 단자, RGB On/Off 스위치, 전원 버튼 (통합 F-Panel)'
+                }
+            },
             'TA300': {
                 name: 'TA300 RGB',
                 category: '케이스',
