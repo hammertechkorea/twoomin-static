@@ -1460,10 +1460,9 @@
                     colorSelectorContainer.style.display = 'flex';
                     createColorButtons(colorSelectorContainer, product, 'bottom');
                     
-                    // 기본 상태: 안내 가이드 보이고 이미지/확대 버튼 숨김
-                    if (colorSelectGuide) colorSelectGuide.style.display = 'block';
-                    if (detailImgWrapper) detailImgWrapper.style.display = 'none';
-                    if (zoomBtn) zoomBtn.style.display = 'none';
+                    // 기본 상태: 기본 색상(블랙 등) 자동 선택하여 상세페이지 즉시 표출
+                    const defaultCol = product.defaultColor || (product.colors && product.colors[0]) || 'black';
+                    selectColor(defaultCol);
                 } else {
                     detailControlBar.style.display = 'none';
                     colorSelectorContainer.style.display = 'none';
