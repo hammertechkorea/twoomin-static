@@ -162,6 +162,8 @@
         }
         .tab-menu {
             display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 10px;
             background-color: #e5e5ea;
             padding: 6px;
@@ -417,7 +419,16 @@
     <section class="hero">
         <div class="hero-slider">
             
-            <div class="hero-slide active" onclick="location.href='product-detail.html?model=TA400'" title="TA400 SHOWCASE 자세히 보기">
+            <div class="hero-slide active" onclick="location.href='product-detail.html?model=TE100'" title="TE100 AI MACHINE 자세히 보기">
+                <div class="hero-badge" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: #f8fafc; border: 1px solid #475569;">2026 NEW AI WORKSTATION</div>
+                <h1>AI 연산과 멀티 GPU를 위한<br>서버급 풀타워, TE100 AI MACHINE</h1>
+                <p>SSI-EEB 보드 &amp; 8슬롯 450mm 멀티 GPU 완벽 지원, 140mm AF140 PWM 4팬 &amp; 10CH 팬 허브 기본 탑재</p>
+                <div class="hero-image-box">
+                    <img src="TE100_1000x1000.jpg" alt="TE100 AI MACHINE 워크스테이션 풀타워">
+                </div>
+            </div>
+
+            <div class="hero-slide" onclick="location.href='product-detail.html?model=TA400'" title="TA400 SHOWCASE 자세히 보기">
                 <div class="hero-badge" style="background: linear-gradient(135deg, #0284c7, #2563eb);">2026 NEW SHOWCASE</div>
                 <h1>시선을 사로잡는 270° 파노라마 뷰<br>후면 140mm 지원 쇼케이스, TA400</h1>
                 <p>기둥 없는 프레임리스 파노라마 설계와 120mm FRGB 4팬 기본 탑재, 후면 140mm 팬 완벽 호환</p>
@@ -470,11 +481,13 @@
             <div class="dot" onclick="currentSlide(2)"></div>
             <div class="dot" onclick="currentSlide(3)"></div>
             <div class="dot" onclick="currentSlide(4)"></div>
+            <div class="dot" onclick="currentSlide(5)"></div>
         </div>
     </section>
 
-    <section class="tabs-section">
+    <section class="tabs-section" id="tabs-section">
         <div class="tab-menu">
+            <button class="tab-btn" onclick="openTab('eatx-server')">E-ATX / SERVER</button>
             <button class="tab-btn active" onclick="openTab('standard-atx')">ATX</button>
             <button class="tab-btn" onclick="openTab('matx-mini')">M-ATX</button>
             <button class="tab-btn" onclick="openTab('cpu-cooler')">CPU COOLER</button>
@@ -482,9 +495,16 @@
         </div>
     </section>
 
-    <div id="standard-atx" class="tab-content products-grid active">
+    <div id="eatx-server" class="tab-content products-grid">
+        <div style="grid-column: 1 / -1; background: linear-gradient(135deg, #0f172a, #1e293b); color: #f8fafc; padding: 18px 24px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; text-align: left;">
+            <div>
+                <span style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #38bdf8; margin-bottom: 4px;">E-ATX / SERVER · WORKSTATION LINEUP</span>
+                <p style="margin: 0; font-size: 15px; color: #e2e8f0;">고성능 AI 연산·딥러닝·렌더링·서버 구축을 위한 E-ATX / SSI-EEB &amp; 멀티 GPU 확장형 섀시 라인업</p>
+            </div>
+        </div>
+
         <div class="product-card" onclick="location.href='product-detail.html?model=TE100'" style="cursor: pointer;">
-            <div class="card-badge premium">AI WORKSTATION FULL-TOWER</div>
+            <div class="card-badge" style="background: linear-gradient(135deg, #0f172a, #334155); color: #fbbf24;">WORKSTATION / SERVER READY</div>
             <div class="prod-img-slot">
                 <img src="TE100_1000x1000.jpg" alt="TE100 AI MACHINE">
             </div>
@@ -492,7 +512,9 @@
             <p>SSI-EEB &amp; 8슬롯 450mm 멀티 GPU 완벽 지원<br>상단·전면 420mm 수랭 / AF140 PWM 4팬 기본 탑재</p>
             <button class="b2b-quote-btn" onclick="event.stopPropagation(); location.href='#b2b-form'">B2B 공급가 문의</button>
         </div>
+    </div>
 
+    <div id="standard-atx" class="tab-content products-grid active">
         <div class="product-card" onclick="location.href='product-detail.html?model=TA400'" style="cursor: pointer;">
             <div class="card-badge" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff;">NEW</div>
             <div class="prod-img-slot">
@@ -747,9 +769,12 @@
                 <div class="form-group">
                     <label for="product">관심 품목 선택</label>
                     <select id="product" name="product">
+                        <!-- E-ATX / 서버 · 워크스테이션 라인업 -->
+                        <optgroup label="E-ATX / 서버 · 워크스테이션 제품군">
+                            <option value="TE100">TE100 AI MACHINE (NEW AI 워크스테이션 풀타워)</option>
+                        </optgroup>
                         <!-- ATX 라인업 -->
                         <optgroup label="Standard ATX 제품군">
-                            <option value="TE100">TE100 AI MACHINE (NEW AI 워크스테이션 풀타워)</option>
                             <option value="TA400">TA400 SHOWCASE (NEW 파노라마 쇼케이스)</option>
                             <option value="TA300">TA300 RGB (플래그십 어항형)</option>
                             <option value="TA100">TA100 (시그니처 파노라마)</option>
