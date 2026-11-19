@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TWOMIN SYSTEM - 투민시스템</title>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://twominsystem.com/">
+    <meta property="og:title" content="TWOMIN SYSTEM - 투민시스템">
+    <meta property="og:description" content="PC 케이스 · CPU 쿨러 · AI 워크스테이션 전문 기업 투민시스템 공식 홈페이지">
+    <meta property="og:image" content="https://twominsystem.com/TE100_1000x1000.jpg">
     <style>
         /* 기본 폰트 및 초기화 */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; }
@@ -389,19 +394,6 @@
     </style>
 </head>
 <body>
-
-    <!-- 여름 휴가 공지 팝업 -->
-    <div id="vacationPopup" class="popup-modal">
-        <div class="popup-content">
-            <img src="chuseok_popup_2026.jpg" alt="추석 연휴 공지">
-            <div class="popup-footer">
-                <label>
-                    <input type="checkbox" id="hidePopupToday"> 오늘 하루 보지 않기
-                </label>
-                <button class="popup-close" onclick="closePopup()">닫기 [X]</button>
-            </div>
-        </div>
-    </div>
 
     <header>
         <div class="nav-container">
@@ -988,10 +980,12 @@
         }
 
         function checkPopup() {
+            const popup = document.getElementById('vacationPopup');
+            if (!popup) return;
             const endDate = new Date("2026-09-28T00:00:00+09:00");
             const now = new Date();
             if (now < endDate && getCookie("hideChuseokPopup") !== "true") {
-                document.getElementById('vacationPopup').classList.add('show');
+                popup.classList.add('show');
             }
         }
 
