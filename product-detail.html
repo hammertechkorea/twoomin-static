@@ -580,6 +580,44 @@
     <script>
         // 1. 제품 데이터 데이터베이스 정의
         const productDb = {
+            'TE100': {
+                name: 'TE100 AI MACHINE',
+                category: '케이스',
+                badge: 'AI WORKSTATION FULL-TOWER',
+                subtext: 'SSI-EEB 지원 · 8슬롯 450mm 멀티 GPU · AF140 PWM 140mm 4팬 & 10CH 팬 허브 기본 탑재',
+                img: 'TE100_1000x1000.jpg',
+                detailImg: 'TE100_detail.jpg',
+                quickSpecs: [
+                    { label: '규격', val: 'AI 워크스테이션 풀타워 (SSI-EEB)' },
+                    { label: '외형 치수', val: '530(D) × 248(W) × 550(H) mm' },
+                    { label: '그래픽카드', val: '최대 450mm / 8 PCIe 슬롯 / 지지대 2개' },
+                    { label: 'CPU 쿨러', val: '최대 높이 190mm' },
+                    { label: '수랭 지원', val: '상단·전면 최대 420mm / 측면 280mm' },
+                    { label: '기본 팬', val: 'AF140 PWM 140mm × 4 + 10CH 팬 허브' }
+                ],
+                marketing: [
+                    { icon: '🖥️', title: 'SSI-EEB & 8슬롯 450mm 멀티 GPU 수용', desc: '서버급 SSI-EEB 메인보드와 최대 450mm 플래그십 그래픽카드, 8개 확장 슬롯 및 전용 지지 브래킷 2개로 AI 딥러닝 워크스테이션을 안정적으로 구축합니다.' },
+                    { icon: '❄️', title: '상단·전면 듀얼 420mm 수랭 & AF140 PWM 4팬 기본 제공', desc: '전면 3개 + 후면 1개 총 4개의 140mm AF140 PWM 팬과 10CH PWM 팬 허브를 기본 탑재하고 최대 14개 팬 확장을 지원합니다.' },
+                    { icon: '💾', title: '최대 12베이 스토리지 확장 & 4면 마그네틱 먼지 필터', desc: '기본 3.5"×5 + 2.5"×1(옵션 브래킷 시 최대 12베이) 확장과 USB 3.2 Gen2 Type-C 상단 I/O를 제공합니다.' }
+                ],
+                specs: {
+                    '제품 모델명': 'TE100 AI MACHINE (Black)',
+                    '케이스 규격': 'AI 워크스테이션 / 서버 풀타워 섀시',
+                    '외형 치수 (발 포함)': '530(D) × 248(W) × 550(H) mm',
+                    '섀시 치수 (발 제외)': '500(D) × 248(W) × 530(H) mm',
+                    '제품 무게': 'N.W 11.2 kg / G.W 13.5 kg',
+                    '지원 메인보드': 'SSI-EEB / E-ATX / ATX / Micro-ATX / Mini-ITX',
+                    'CPU 쿨러 최대 높이': '190 mm',
+                    '그래픽카드 최대 길이': '450 mm (측면 라디에이터 장착 시 300 mm)',
+                    '파워서플라이 최대 길이': '표준 ATX (최대 200 mm)',
+                    '확장 PCIe 슬롯': '8개 (그래픽카드 지지대 2개 기본 장착)',
+                    '기본 장착 쿨링팬': 'AF140 PWM 140mm × 4 (전면 3 + 후면 1) + 10CH PWM 팬 허브',
+                    '쿨링팬 최대 지원': '최대 14개',
+                    '수랭 라디에이터': '상단·전면 420mm / 측면 280mm / 후면 140mm',
+                    '스토리지 베이': '기본 3.5" × 5 + 2.5" × 1 (옵션 브래킷 시 최대 12베이)',
+                    '상단 I/O': 'USB 3.2 Gen2 Type-C × 1, USB 3.0 × 2, USB 2.0 × 2, HD Audio'
+                }
+            },
             'TA400': {
                 name: 'TA400 SHOWCASE',
                 category: '케이스',
@@ -1324,7 +1362,7 @@
             const zoomBtn = document.getElementById('zoom-toggle-btn');
 
             if (product.detailImgs && product.detailImgs[colorKey]) {
-                detailSpecImg.src = product.detailImgs[colorKey] + '?v=202611161725';
+                detailSpecImg.src = product.detailImgs[colorKey] + '?v=202611191554';
                 if (colorSelectGuide) colorSelectGuide.style.display = 'none';
                 if (detailImgWrapper) detailImgWrapper.style.display = 'block';
                 if (zoomBtn) zoomBtn.style.display = 'inline-flex';
@@ -1473,7 +1511,7 @@
                     colorSelectorContainer.style.display = 'none';
                     if (colorSelectGuide) colorSelectGuide.style.display = 'none';
                     if (detailImgWrapper) detailImgWrapper.style.display = 'block';
-                    detailSpecImg.src = product.detailImg + '?v=202611161725';
+                    detailSpecImg.src = product.detailImg + '?v=202611191554';
                 }
             } else {
                 detailImgSection.style.display = 'none';
