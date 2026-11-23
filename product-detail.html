@@ -1261,8 +1261,9 @@
                 name: 'THERMANOVA AF140 PWM',
                 category: '쿨링팬',
                 badge: '74.59 CFM 대풍량 플래그십',
-                subtext: 'Hydraulic Bearing 저소음 설계, 8 Point 댐퍼로 진동 차단 및 데이지체인 지원',
+                subtext: 'Hydraulic Bearing 저소음 설계, 알루미늄 CD 데코 캡 및 데이지체인 지원',
                 colors: ['black', 'white'],
+                defaultColor: 'black',
                 img: {
                     'black': 'AF140_Black_single_1000x1000.jpg',
                     'white': 'AF140_White_single_1000x1000.jpg'
@@ -1275,12 +1276,12 @@
                     { label: '정압', val: '1.32 mmH₂O' },
                     { label: '속도', val: '600 ~ 1,500 RPM (PWM 가변)' },
                     { label: '소음', val: '최대 31.94 dB(A) 저소음' },
-                    { label: '특징', val: '8 Point 방진 폼 패드 / 데이지체인' },
+                    { label: '특징', val: '알루미늄 CD 데코 캡 / 데이지체인' },
                     { label: '패키지', val: '단품 (Single Pack)' }
                 ],
                 marketing: [
                     { icon: '🌪️', title: '74.59 CFM 압도적 대풍량 순환', desc: '대구경 140mm 임펠러와 공기역학 블레이드 설계로 낮은 RPM에서도 케이스 내부 공기를 빠르고 조용하게 대량 순환시킵니다.' },
-                    { icon: '🔇', title: '8 Point 댐퍼 및 저소음 유체 베어링', desc: '프레임 8개 모서리 전체에 진동 흡수 폼 패드를 장착하고 Hydraulic Bearing을 적용하여 고속 회전 시에도 마찰과 공진음을 원천 차단합니다.' },
+                    { icon: '🔇', title: '저소음 유체 베어링 (Hydraulic Bearing)', desc: '마찰과 소음을 줄인 대구경 Hydraulic Bearing과 0.1mm 정밀 블레이드 설계로 고속 회전 시에도 정숙하고 안정적인 구동을 유지합니다.' },
                     { icon: '🔗', title: '깔끔한 데이지 체인 연결 구조', desc: '팬과 팬을 직접 연결하는 데이지 체인 케이블 구조로 메인보드 팬 헤더 부족을 해결하고 선 정리를 극대화했습니다.' }
                 ],
                 specs: {
@@ -1290,13 +1291,12 @@
                     '최대 풍량': '74.59 CFM',
                     '최대 풍압': '1.32 mmH₂O',
                     '최대 소음': '31.94 dB(A)',
-                    '팬 베어링': 'Hydraulic Bearing (유체 베어링)',
+                    '팬 베어링': 'Hydraulic Bearing',
                     '기대 수명': '30,000시간 (25℃ 기준)',
-                    '정격 전압 / 전류': 'DC 12V / 0.2A (작동 전압: DC 6.0~13.8V)',
-                    '시작 전압': 'DC 6.0V (ON/OFF)',
+                    '정격 전압 / 전류': 'DC 12V / 0.2A',
+                    '시작 전압': 'DC 6.0V',
                     '전원 커넥터': '4핀 PWM (데이지체인 지원)',
-                    '특수 기능': '8개 모서리 고무 방진 패드 장착, 알루미늄 CD 헤어라인 허브 캡',
-                    '패키지 구성': 'AF140 PWM 팬 1개, 케이스 장착용 고정 나사 4개'
+                    '특수 기능': '알루미늄 CD 헤어라인 허브 캡, 데이지체인 직렬 연결 지원'
                 }
             },
             'AF120': {
@@ -1362,7 +1362,7 @@
             const zoomBtn = document.getElementById('zoom-toggle-btn');
 
             if (product.detailImgs && product.detailImgs[colorKey]) {
-                detailSpecImg.src = product.detailImgs[colorKey] + '?v=202611231250';
+                detailSpecImg.src = product.detailImgs[colorKey] + '?v=202611240850';
                 if (colorSelectGuide) colorSelectGuide.style.display = 'none';
                 if (detailImgWrapper) detailImgWrapper.style.display = 'block';
                 if (zoomBtn) zoomBtn.style.display = 'inline-flex';
@@ -1511,7 +1511,7 @@
                     colorSelectorContainer.style.display = 'none';
                     if (colorSelectGuide) colorSelectGuide.style.display = 'none';
                     if (detailImgWrapper) detailImgWrapper.style.display = 'block';
-                    detailSpecImg.src = product.detailImg + '?v=202611231250';
+                    detailSpecImg.src = product.detailImg + '?v=202611240850';
                 }
             } else {
                 detailImgSection.style.display = 'none';
