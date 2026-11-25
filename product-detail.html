@@ -443,6 +443,133 @@
             color: #fff;
             border-color: #007aff;
         }
+
+        /* 빠른 스크롤 플로팅 네비게이션 (1안+2안 혼합 / 1안 전환 지원) */
+        .floating-scroll-nav {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 950;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 4px;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid #e5e5ea;
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .floating-scroll-nav.mode-simple {
+            padding: 0;
+            background: transparent;
+            backdrop-filter: none;
+            border: none;
+            box-shadow: none;
+            gap: 8px;
+            align-items: center;
+        }
+        .fsn-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            min-width: 86px;
+            padding: 7px 11px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: #48484a;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, transform 0.15s;
+            white-space: nowrap;
+        }
+        .fsn-btn:hover {
+            background-color: #f2f2f7;
+            color: #007aff;
+        }
+        .fsn-btn.active {
+            background-color: #007aff;
+            color: #ffffff;
+        }
+        .fsn-btn.fsn-top,
+        .fsn-btn.fsn-bottom {
+            font-weight: 700;
+        }
+        .fsn-btn.fsn-bottom {
+            background-color: #f0f7ff;
+            color: #007aff;
+        }
+        .fsn-btn.fsn-bottom:hover {
+            background-color: #007aff;
+            color: #ffffff;
+        }
+        .fsn-progress-badge {
+            font-size: 11px;
+            font-weight: 700;
+            opacity: 0.85;
+            font-variant-numeric: tabular-nums;
+        }
+        /* 1안(Simple) 전용 원형 버튼 스타일 */
+        .floating-scroll-nav.mode-simple .fsn-sec-btn {
+            display: none !important;
+        }
+        .floating-scroll-nav.mode-simple .fsn-btn {
+            min-width: 0;
+            width: 46px;
+            height: 46px;
+            padding: 0;
+            border-radius: 50%;
+            justify-content: center;
+            background: #ffffff;
+            border: 1px solid #e5e5ea;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+        .floating-scroll-nav.mode-simple .fsn-btn.fsn-bottom {
+            background: #007aff;
+            color: #ffffff;
+            border-color: #007aff;
+        }
+        .floating-scroll-nav .fsn-btn.is-scrolling {
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.28), 0 6px 18px rgba(0, 122, 255, 0.25);
+            transform: scale(1.06);
+        }
+        .floating-scroll-nav.mode-simple .fsn-label,
+        .floating-scroll-nav.mode-simple .fsn-progress-badge {
+            display: none;
+        }
+        .fsn-ring-svg {
+            display: none;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+            pointer-events: none;
+        }
+        .floating-scroll-nav.mode-simple .fsn-top .fsn-ring-svg {
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .floating-scroll-nav {
+                right: 14px;
+                bottom: 16px;
+                padding: 4px;
+                border-radius: 14px;
+            }
+            .fsn-btn {
+                min-width: 68px;
+                padding: 6px 9px;
+                font-size: 11px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -576,6 +703,30 @@
             </div>
         </div>
     </footer>
+
+    <!-- 빠른 스크롤 플로팅 네비게이션 (1안+2안 혼합 / 1안 전환 지원) -->
+    <nav id="floating-scroll-nav" class="floating-scroll-nav" aria-label="페이지 빠른 이동">
+        <button type="button" class="fsn-btn fsn-top" data-target="top" onclick="scrollToQuickTarget('top')" title="맨 위로 이동">
+            <svg class="fsn-ring-svg" viewBox="0 0 46 46">
+                <circle cx="23" cy="23" r="21" fill="none" stroke="rgba(0,122,255,0.16)" stroke-width="2.5"></circle>
+                <circle id="fsn-ring-progress" cx="23" cy="23" r="21" fill="none" stroke="#007aff" stroke-width="2.5" stroke-dasharray="131.95" stroke-dashoffset="131.95" stroke-linecap="round"></circle>
+            </svg>
+            <span>▲ <span class="fsn-label">TOP</span></span>
+            <span id="fsn-pct" class="fsn-progress-badge">0%</span>
+        </button>
+        <button type="button" class="fsn-btn fsn-sec-btn" id="fsn-btn-detail" data-target="detail-image-section" onclick="scrollToQuickTarget('detail-image-section')">
+            <span class="fsn-label">상세이미지</span>
+        </button>
+        <button type="button" class="fsn-btn fsn-sec-btn" id="fsn-btn-marketing" data-target="marketing-container" onclick="scrollToQuickTarget('marketing-container')">
+            <span class="fsn-label">특장점</span>
+        </button>
+        <button type="button" class="fsn-btn fsn-sec-btn" id="fsn-btn-specs" data-target="specs-table-section" onclick="scrollToQuickTarget('specs-table-section')">
+            <span class="fsn-label">스펙표</span>
+        </button>
+        <button type="button" class="fsn-btn fsn-bottom" data-target="bottom" onclick="scrollToQuickTarget('bottom')" title="맨 아래로 이동">
+            <span>▼ <span class="fsn-label">END</span></span>
+        </button>
+    </nav>
 
     <script>
         // 1. 제품 데이터 데이터베이스 정의
@@ -1354,7 +1505,7 @@
             const zoomBtn = document.getElementById('zoom-toggle-btn');
 
             if (product.detailImgs && product.detailImgs[colorKey]) {
-                detailSpecImg.src = product.detailImgs[colorKey] + '?v=202611241457';
+                detailSpecImg.src = product.detailImgs[colorKey] + '?v=202611251327';
                 if (colorSelectGuide) colorSelectGuide.style.display = 'none';
                 if (detailImgWrapper) detailImgWrapper.style.display = 'block';
                 if (zoomBtn) zoomBtn.style.display = 'inline-flex';
@@ -1503,7 +1654,7 @@
                     colorSelectorContainer.style.display = 'none';
                     if (colorSelectGuide) colorSelectGuide.style.display = 'none';
                     if (detailImgWrapper) detailImgWrapper.style.display = 'block';
-                    detailSpecImg.src = product.detailImg + '?v=202611241457';
+                    detailSpecImg.src = product.detailImg + '?v=202611251327';
                 }
             } else {
                 detailImgSection.style.display = 'none';
@@ -1530,8 +1681,174 @@
         }
 
         // 4. 페이지 로딩 즉시 실행
+        // 빠른 스크롤 모드 설정: 'hybrid' (1안+2안 혼합) | 'simple' (1안: 원형 ▲/▼ + 진행률 링)
+        const SCROLL_NAV_MODE = 'simple';
+
+        // 커스텀 스무스 스크롤 상태 (원하는 위치에서 즉시 정지 가능)
+        const autoScrollState = {
+            rafId: null,
+            activeTarget: null
+        };
+
+        function stopAutoScroll() {
+            if (autoScrollState.rafId !== null) {
+                cancelAnimationFrame(autoScrollState.rafId);
+                autoScrollState.rafId = null;
+            }
+            autoScrollState.activeTarget = null;
+            const nav = document.getElementById('floating-scroll-nav');
+            if (nav) {
+                nav.querySelectorAll('.fsn-btn.is-scrolling').forEach(btn => btn.classList.remove('is-scrolling'));
+            }
+        }
+
+        function smoothScrollToY(targetY, targetKey) {
+            const startY = window.scrollY || document.documentElement.scrollTop;
+            const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+            const clampedTargetY = Math.min(maxScroll, Math.max(0, targetY));
+            const distance = clampedTargetY - startY;
+
+            // 이미 같은 방향으로 자동 스크롤 중이면 재클릭 시 즉시 정지
+            if (autoScrollState.rafId !== null && autoScrollState.activeTarget === targetKey) {
+                stopAutoScroll();
+                return;
+            }
+
+            stopAutoScroll();
+            if (Math.abs(distance) < 2) return;
+
+            // 초당 약 2,000px 속도 기준 (최소 0.6초 ~ 최대 3.5초)으로 내용을 훑어보기 좋은 속도 유지
+            const duration = Math.min(3500, Math.max(600, (Math.abs(distance) / 2000) * 1000));
+            const startTime = performance.now();
+
+            autoScrollState.activeTarget = targetKey;
+            const activeBtn = document.querySelector(`#floating-scroll-nav .fsn-btn[data-target="${targetKey}"]`);
+            if (activeBtn) activeBtn.classList.add('is-scrolling');
+
+            // 시작·끝만 살짝 부드럽고 중간은 거의 일정한 속도로 이동해 원하는 위치에서 멈추기 쉬움
+            function easeGentleInOut(t) {
+                if (t < 0.15) return (t / 0.15) * (t / 0.15) * 0.15;
+                if (t > 0.85) {
+                    const u = (1 - t) / 0.15;
+                    return 1 - u * u * 0.15;
+                }
+                return 0.15 + ((t - 0.15) / 0.7) * 0.7;
+            }
+
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(1, elapsed / duration);
+                const eased = easeGentleInOut(progress);
+
+                window.scrollTo(0, startY + distance * eased);
+
+                if (progress < 1 && autoScrollState.rafId !== null) {
+                    autoScrollState.rafId = requestAnimationFrame(step);
+                } else {
+                    stopAutoScroll();
+                }
+            }
+
+            autoScrollState.rafId = requestAnimationFrame(step);
+        }
+
+        function scrollToQuickTarget(target) {
+            if (target === 'top') {
+                smoothScrollToY(0, 'top');
+                return;
+            }
+            if (target === 'bottom') {
+                smoothScrollToY(document.documentElement.scrollHeight - window.innerHeight, 'bottom');
+                return;
+            }
+            const el = document.getElementById(target) || document.querySelector('.' + target);
+            if (!el) return;
+            const headerOffset = 84;
+            const targetTop = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+            smoothScrollToY(Math.max(0, targetTop), target);
+        }
+
+        function initFloatingScrollNav() {
+            const nav = document.getElementById('floating-scroll-nav');
+            if (!nav) return;
+
+            if (SCROLL_NAV_MODE === 'simple') {
+                nav.classList.add('mode-simple');
+            } else {
+                nav.classList.remove('mode-simple');
+            }
+
+            // 현재 제품에 실제로 표시된 섹션만 퀵 점프 버튼 노출
+            const sectionMap = [
+                { btnId: 'fsn-btn-detail', el: document.getElementById('detail-image-section'), target: 'detail-image-section' },
+                { btnId: 'fsn-btn-marketing', el: document.getElementById('marketing-container'), target: 'marketing-container' },
+                { btnId: 'fsn-btn-specs', el: document.querySelector('.specs-table-section'), target: 'specs-table-section' }
+            ];
+
+            const visibleSections = [];
+            sectionMap.forEach(item => {
+                const btn = document.getElementById(item.btnId);
+                if (!btn || !item.el) return;
+                const isVisible = window.getComputedStyle(item.el).display !== 'none';
+                btn.style.display = isVisible ? 'flex' : 'none';
+                if (isVisible) visibleSections.push(item);
+            });
+
+            const pctEl = document.getElementById('fsn-pct');
+            const ringEl = document.getElementById('fsn-ring-progress');
+            const ringCircumference = 131.95;
+
+            function updateScrollNavState() {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                const ratio = maxScroll > 0 ? Math.min(1, Math.max(0, scrollTop / maxScroll)) : 0;
+
+                if (pctEl) pctEl.textContent = Math.round(ratio * 100) + '%';
+                if (ringEl) ringEl.style.strokeDashoffset = (ringCircumference * (1 - ratio)).toFixed(2);
+
+                if (SCROLL_NAV_MODE === 'simple') return;
+
+                let activeTarget = 'top';
+                if (maxScroll > 0 && scrollTop >= maxScroll - 24) {
+                    activeTarget = 'bottom';
+                } else {
+                    const checkY = scrollTop + 140;
+                    visibleSections.forEach(item => {
+                        const secTop = item.el.getBoundingClientRect().top + scrollTop;
+                        if (secTop <= checkY) {
+                            activeTarget = item.target;
+                        }
+                    });
+                }
+
+                nav.querySelectorAll('.fsn-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.target === activeTarget);
+                });
+            }
+
+            window.addEventListener('scroll', updateScrollNavState, { passive: true });
+            window.addEventListener('resize', updateScrollNavState, { passive: true });
+
+            // 이동 중 사용자 조작(휠, 터치, 화면 클릭, 키보드) 감지 시 즉시 정지
+            window.addEventListener('wheel', stopAutoScroll, { passive: true });
+            window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+            window.addEventListener('pointerdown', (e) => {
+                if (!e.target.closest('#floating-scroll-nav')) {
+                    stopAutoScroll();
+                }
+            }, { passive: true });
+            window.addEventListener('keydown', (e) => {
+                if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ', 'Escape'].includes(e.key)) {
+                    stopAutoScroll();
+                }
+            });
+
+            updateScrollNavState();
+        }
+
         window.onload = function() {
             renderProductDetails();
+            initFloatingScrollNav();
         };
     </script>
 </body>
